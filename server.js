@@ -11,7 +11,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
-
+const cors = require('cors'); // Must be all lowercase
 // Neon Connection
 const sql = neon(process.env.DATABASE_URL);
 const db = drizzle(sql);
