@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { neon } = require('@neondatabase/serverless');
 const { drizzle } = require('drizzle-orm/neon-http');
 const { eq, and, desc } = require('drizzle-orm');
-const { users, products, orders, cartItems } = require('./db/schema');
+const { users, products, orders, cartItems } = require('./schema');
 require('dotenv').config();
 
 const app = express();
