@@ -19,11 +19,13 @@
   "license": "ISC",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
+    "axios": "^1.13.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.6",
     "dotenv": "^16.6.1",
     "drizzle-orm": "^0.45.1",
     "express": "^4.22.1",
+    "groq-sdk": "^0.37.0",
     "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
