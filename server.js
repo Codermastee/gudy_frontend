@@ -537,6 +537,10 @@ function generateFallbackResponse(message, language = 'en') {
 
   // Enhanced shipping/delivery fallback with multi-language support
   if (msgLower.includes('ship') || msgLower.includes('deliver') || msgLower.includes('delivery') ||
+      msgLower.includes('shipping') || msgLower.includes('freight') || msgLower.includes('courier') ||
+      msgLower.includes('dispatch') || msgLower.includes('send') || msgLower.includes('transport') ||
+      msgLower.includes('when will') || msgLower.includes('how long') || msgLower.includes('track') ||
+      msgLower.includes('arrive') || msgLower.includes('reach') || msgLower.includes('receive') ||
       msgLower.includes('शिपिंग') || msgLower.includes('डिलीवरी') || msgLower.includes('वितरण') ||
       msgLower.includes('ஷிப்பிங்') || msgLower.includes('டெலிவரி') || msgLower.includes('விநியோகம்') ||
       msgLower.includes('షిప్పింగ్') || msgLower.includes('డెలివరీ') || msgLower.includes('పంపిణీ') ||
