@@ -535,9 +535,30 @@ function generateFallbackResponse(message, language = 'en') {
     };
   }
 
-  if (msgLower.includes('ship') || msgLower.includes('deliver')) {
+  // Enhanced shipping/delivery fallback with multi-language support
+  if (msgLower.includes('ship') || msgLower.includes('deliver') || msgLower.includes('delivery') ||
+      msgLower.includes('शिपिंग') || msgLower.includes('डिलीवरी') || msgLower.includes('वितरण') ||
+      msgLower.includes('ஷிப்பிங்') || msgLower.includes('டெலிவரி') || msgLower.includes('விநியோகம்') ||
+      msgLower.includes('షిప్పింగ్') || msgLower.includes('డెలివరీ') || msgLower.includes('పంపిణీ') ||
+      msgLower.includes('ಶಿಪ್ಪಿಂಗ್') || msgLower.includes('ಡೆಲಿವರಿ') || msgLower.includes('ವಿತರಣೆ') ||
+      msgLower.includes('ഷിപ്പിംഗ്') || msgLower.includes('ഡെലിവറി') || msgLower.includes('വിതരണം') ||
+      msgLower.includes('शिपींग') || msgLower.includes('डिलिव्हरी') || msgLower.includes('পাঠানো') ||
+      msgLower.includes('ডেলিভারি') || msgLower.includes('શિપિંગ') || msgLower.includes('ડિલિવરી') ||
+      msgLower.includes('ਸ਼ਿਪਿੰਗ') || msgLower.includes('ਡਿਲੀਵਰੀ')) {
+    const shippingHeaders = {
+      en: '📦 Shipping Information',
+      hi: '📦 शिपिंग जानकारी',
+      ta: '📦 ஷிப்பிங் தகவல்',
+      te: '📦 షిప్పింగ్ సమాచారం',
+      kn: '📦 ಶಿಪ್ಪಿಂಗ್ ಮಾಹಿತಿ',
+      ml: '📦 ഷിപ്പിംഗ് വിവരം',
+      mr: '📦 शिपींग माहिती',
+      bn: '📦 শিপিং তথ্য',
+      gu: '📦 શિપિંગ માહિતી',
+      pa: '📦 ਸ਼ਿਪਿੰਗ ਜਾਣਕਾਰੀ'
+    };
     return {
-      message: t.faqs.shipping + '\n\n' + t.faqs.delivery,
+      message: `${shippingHeaders[language] || shippingHeaders.en}\n\n${t.faqs.shipping}\n\n${t.faqs.delivery}`,
       quickReplies: generateQuickReplies(message, language)
     };
   }
