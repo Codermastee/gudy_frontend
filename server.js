@@ -24,11 +24,7 @@ app.use(express.json());
 // Self-ping to keep server awake
 const URL = process.env.RENDER_EXTERNAL_URL || 'https://gudy-frontend.onrender.com/api/health' || `http://localhost:${PORT}/api/health`;
 
-setInterval(() => {
-  axios.get(URL)
-    .then(() => console.log('Self-ping successful: keeping the server awake!'))
-    .catch((err) => console.error('Self-ping failed:', err.message));
-}, 10 * 60 * 1000);
+
 
 // Auth Middleware
 const authenticateToken = async (req, res, next) => {
