@@ -536,11 +536,20 @@ function generateFallbackResponse(message, language = 'en') {
   }
 
   // Enhanced shipping/delivery fallback with multi-language support
-  if (msgLower.includes('ship') || msgLower.includes('deliver') || msgLower.includes('delivery') ||
-      msgLower.includes('shipping') || msgLower.includes('freight') || msgLower.includes('courier') ||
-      msgLower.includes('dispatch') || msgLower.includes('send') || msgLower.includes('transport') ||
-      msgLower.includes('when will') || msgLower.includes('how long') || msgLower.includes('track') ||
-      msgLower.includes('arrive') || msgLower.includes('reach') || msgLower.includes('receive') ||
+  // Check if message contains shipping-related terms
+  const isShippingRelated = msgLower.includes('ship') || msgLower.includes('deliver') || 
+      msgLower.includes('delivery') || msgLower.includes('shipping') || 
+      msgLower.includes('freight') || msgLower.includes('courier') ||
+      msgLower.includes('dispatch') || msgLower.includes('send') || 
+      msgLower.includes('transport') || msgLower.includes('when will') || 
+      msgLower.includes('how long') || msgLower.includes('track') ||
+      msgLower.includes('arrive') || msgLower.includes('reach') || 
+      msgLower.includes('receive') || msgLower.includes('info') ||
+      msgLower.includes('shipping info') || msgLower.includes('शिपिंग जानकारी') || 
+      msgLower.includes('ஷிப்பிங் தகவல்') || msgLower.includes('షిప్పింగ్ సమాచారం') ||
+      msgLower.includes('जानकारी') || msgLower.includes('தகவல்') || msgLower.includes('సమాచారం') ||
+      msgLower.includes('ಮಾಹಿತಿ') || msgLower.includes('വിവരം') || msgLower.includes('माहिती') ||
+      msgLower.includes('তথ্য') || msgLower.includes('માહિતી') || msgLower.includes('ਜਾਣਕਾਰੀ') ||
       msgLower.includes('शिपिंग') || msgLower.includes('डिलीवरी') || msgLower.includes('वितरण') ||
       msgLower.includes('ஷிப்பிங்') || msgLower.includes('டெலிவரி') || msgLower.includes('விநியோகம்') ||
       msgLower.includes('షిప్పింగ్') || msgLower.includes('డెలివరీ') || msgLower.includes('పంపిణీ') ||
@@ -548,7 +557,9 @@ function generateFallbackResponse(message, language = 'en') {
       msgLower.includes('ഷിപ്പിംഗ്') || msgLower.includes('ഡെലിവറി') || msgLower.includes('വിതരണം') ||
       msgLower.includes('शिपींग') || msgLower.includes('डिलिव्हरी') || msgLower.includes('পাঠানো') ||
       msgLower.includes('ডেলিভারি') || msgLower.includes('શિપિંગ') || msgLower.includes('ડિલિવરી') ||
-      msgLower.includes('ਸ਼ਿਪਿੰਗ') || msgLower.includes('ਡਿਲੀਵਰੀ')) {
+      msgLower.includes('ਸ਼ਿਪਿੰਗ') || msgLower.includes('ਡਿਲੀਵਰੀ');
+  
+  if (isShippingRelated) {
     const shippingHeaders = {
       en: '📦 Shipping Information',
       hi: '📦 शिपिंग जानकारी',
