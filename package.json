@@ -26,7 +26,8 @@
     "drizzle-orm": "^0.45.1",
     "express": "^4.22.1",
     "groq-sdk": "^0.37.0",
-    "jsonwebtoken": "^9.0.3"
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^8.0.1"
   },
   "devDependencies": {
     "drizzle-kit": "^0.31.8",
