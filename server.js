@@ -1,3 +1,5 @@
+require('dotenv').config(); // ← MUST be first line before any other imports
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -7,12 +9,98 @@ const { neon } = require('@neondatabase/serverless');
 const { drizzle } = require('drizzle-orm/neon-http');
 const { eq, and, desc } = require('drizzle-orm');
 const { users, products, orders, cartItems } = require('./schema');
-require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
+
+// ==================== NODEMAILER SETUP ====================
+
+const mailer = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+});
+
+async function sendOrderNotification(order) {
+  const itemsHTML = order.items.map(item => `
+    <tr>
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;">${item.name}</td>
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;">${item.weight}</td>
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;">x${item.quantity}</td>
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;font-weight:600;">₹${item.priceINR * item.quantity}</td>
+    </tr>
+  `).join('');
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;border:1px solid #f0e0cc;border-radius:12px;overflow:hidden;">
+
+      <div style="background:linear-gradient(135deg,#2C1A0E,#6B4423);padding:28px;text-align:center;">
+        <h1 style="color:#FF9500;margin:0;font-size:24px;">🛒 New Order Received!</h1>
+        <p style="color:rgba(255,255,255,0.8);margin:8px 0 0;">GUDY Organics Admin Notification</p>
+      </div>
+
+      <div style="padding:28px;background:#fff;">
+
+        <h2 style="color:#6B4423;font-size:16px;margin-bottom:12px;">👤 Customer Details</h2>
+        <table style="width:100%;background:#FDF6EE;border-radius:8px;padding:16px;margin-bottom:24px;border-collapse:collapse;">
+          <tr>
+            <td style="padding:6px 12px;color:#7A6455;width:140px;">Name</td>
+            <td style="padding:6px 12px;font-weight:600;">${order.shippingAddress.fullName}</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;color:#7A6455;">Phone</td>
+            <td style="padding:6px 12px;font-weight:600;">${order.shippingAddress.phone}</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;color:#7A6455;">Payment</td>
+            <td style="padding:6px 12px;font-weight:600;text-transform:uppercase;">${order.paymentMethod}</td>
+          </tr>
+        </table>
+
+        <h2 style="color:#6B4423;font-size:16px;margin-bottom:12px;">📦 Shipping Address</h2>
+        <div style="background:#FDF6EE;border-radius:8px;padding:16px;margin-bottom:24px;line-height:1.8;color:#2C1810;">
+          ${order.shippingAddress.address},<br/>
+          ${order.shippingAddress.city}, ${order.shippingAddress.state} – ${order.shippingAddress.pincode}
+        </div>
+
+        <h2 style="color:#6B4423;font-size:16px;margin-bottom:12px;">🛍️ Items Ordered</h2>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+          <thead>
+            <tr style="background:#6B4423;color:white;">
+              <th style="padding:10px;text-align:left;">Product</th>
+              <th style="padding:10px;text-align:left;">Weight</th>
+              <th style="padding:10px;text-align:left;">Qty</th>
+              <th style="padding:10px;text-align:left;">Price</th>
+            </tr>
+          </thead>
+          <tbody>${itemsHTML}</tbody>
+        </table>
+
+        <div style="background:linear-gradient(135deg,#2C1A0E,#6B4423);border-radius:8px;padding:20px;text-align:right;color:white;">
+          <span style="font-size:14px;opacity:0.8;">Total Amount</span><br/>
+          <span style="font-size:32px;font-weight:900;color:#FF9500;">₹${order.totalAmount}</span>
+        </div>
+
+      </div>
+
+      <div style="background:#FDF6EE;padding:16px;text-align:center;">
+        <p style="color:#9A8070;font-size:12px;margin:0;">© ${new Date().getFullYear()} GUDY Organics · office.gudy@gmail.com</p>
+      </div>
+    </div>
+  `;
+
+  await mailer.sendMail({
+    from: `"GUDY Orders" <${process.env.GMAIL_USER}>`,
+    to: process.env.ADMIN_EMAIL,
+    subject: `🛒 New Order – ₹${order.totalAmount} from ${order.shippingAddress.fullName}`,
+    html,
+  });
+}
 
 // Neon Connection
 const sql = neon(process.env.DATABASE_URL);
@@ -894,6 +982,15 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
     }).returning();
     
     await db.delete(cartItems).where(eq(cartItems.userId, req.user.id));
+
+    // Send admin email notification
+    try {
+      await sendOrderNotification({ ...order, items, shippingAddress, paymentMethod, totalAmount });
+      console.log(`📧 Order notification sent for order #${order.id}`);
+    } catch (mailError) {
+      console.error('⚠️ Email notification failed (order still placed):', mailError.message);
+    }
+
     res.status(201).json({ message: 'Order placed', order });
   } catch (error) {
     res.status(500).json({ message: 'Order error' });
