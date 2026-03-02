@@ -1,5 +1,3 @@
-require('dotenv').config(); // ← MUST be first line before any other imports
-
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -10,6 +8,7 @@ const { drizzle } = require('drizzle-orm/neon-http');
 const { eq, and, desc } = require('drizzle-orm');
 const { users, products, orders, cartItems } = require('./schema');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -98,6 +97,146 @@ async function sendOrderNotification(order) {
     from: `"GUDY Orders" <${process.env.GMAIL_USER}>`,
     to: process.env.ADMIN_EMAIL,
     subject: `🛒 New Order – ₹${order.totalAmount} from ${order.shippingAddress.fullName}`,
+    html,
+  });
+}
+
+// ==================== CUSTOMER ORDER CONFIRMATION EMAIL ====================
+
+async function sendOrderConfirmationToCustomer(order, customerEmail) {
+  const itemsHTML = order.items.map(item => `
+    <tr>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">${item.name}</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">${item.weight}</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#2C1810;">x${item.quantity}</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#6B4423;">₹${item.priceINR * item.quantity}</td>
+    </tr>
+  `).join('');
+
+  const paymentLabel = order.paymentMethod === 'cod'
+    ? '💵 Cash on Delivery'
+    : '💳 Online Payment';
+
+  const estimatedDelivery = (() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 5);
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  })();
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="UTF-8"/></head>
+    <body style="margin:0;padding:0;background:#FFF8F0;font-family:Arial,sans-serif;">
+
+      <div style="max-width:600px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(107,68,35,0.10);border:1px solid #f0e0cc;">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#2C1A0E 0%,#6B4423 100%);padding:36px 28px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:8px;">🎉</div>
+          <h1 style="color:#FF9500;margin:0 0 6px;font-size:26px;letter-spacing:0.5px;">Order Confirmed!</h1>
+          <p style="color:rgba(255,255,255,0.85);margin:0;font-size:15px;">Thank you for shopping with GUDY Organics</p>
+        </div>
+
+        <!-- Order ID Banner -->
+        <div style="background:#FFF3E0;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0e0cc;">
+          <span style="color:#7A6455;font-size:13px;">Order ID</span>
+          <span style="color:#6B4423;font-weight:700;font-size:15px;">#GUDY-${String(order.id).padStart(5,'0')}</span>
+        </div>
+
+        <div style="padding:28px;">
+
+          <!-- Greeting -->
+          <p style="color:#2C1810;font-size:15px;margin:0 0 24px;">
+            Hi <strong>${order.shippingAddress.fullName}</strong>, your order has been successfully placed! 
+            We'll notify you once it's shipped. 🚚
+          </p>
+
+          <!-- Order Items -->
+          <h2 style="color:#6B4423;font-size:15px;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #f0e0cc;">🛍️ Items Ordered</h2>
+          <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+            <thead>
+              <tr style="background:#6B4423;">
+                <th style="padding:10px;text-align:left;color:#fff;font-size:13px;border-radius:4px 0 0 0;">Product</th>
+                <th style="padding:10px;text-align:left;color:#fff;font-size:13px;">Weight</th>
+                <th style="padding:10px;text-align:center;color:#fff;font-size:13px;">Qty</th>
+                <th style="padding:10px;text-align:left;color:#fff;font-size:13px;border-radius:0 4px 0 0;">Price</th>
+              </tr>
+            </thead>
+            <tbody>${itemsHTML}</tbody>
+          </table>
+
+          <!-- Total -->
+          <div style="background:linear-gradient(135deg,#2C1A0E,#6B4423);border-radius:10px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+            <span style="color:rgba(255,255,255,0.8);font-size:14px;">Total Amount</span>
+            <span style="color:#FF9500;font-size:28px;font-weight:900;">₹${order.totalAmount}</span>
+          </div>
+
+          <!-- Two Columns: Shipping + Payment -->
+          <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+            <tr>
+              <td style="width:50%;vertical-align:top;padding-right:10px;">
+                <div style="background:#FDF6EE;border-radius:10px;padding:16px;">
+                  <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">📦 Shipping To</h3>
+                  <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
+                    <strong>${order.shippingAddress.fullName}</strong><br/>
+                    ${order.shippingAddress.address},<br/>
+                    ${order.shippingAddress.city}, ${order.shippingAddress.state}<br/>
+                    Pincode: ${order.shippingAddress.pincode}<br/>
+                    📞 ${order.shippingAddress.phone}
+                  </p>
+                </div>
+              </td>
+              <td style="width:50%;vertical-align:top;padding-left:10px;">
+                <div style="background:#FDF6EE;border-radius:10px;padding:16px;">
+                  <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">💳 Payment Info</h3>
+                  <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
+                    <strong>${paymentLabel}</strong><br/><br/>
+                    <span style="color:#7A6455;">Est. Delivery by</span><br/>
+                    <strong>${estimatedDelivery}</strong>
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </table>
+
+          <!-- What's Next -->
+          <div style="background:#F0FFF4;border:1px solid #B7EBC9;border-radius:10px;padding:16px;margin-bottom:24px;">
+            <h3 style="color:#276749;font-size:13px;margin:0 0 10px;">✅ What happens next?</h3>
+            <ol style="color:#2C1810;font-size:13px;margin:0;padding-left:18px;line-height:2;">
+              <li>We'll verify and process your order within 24 hours</li>
+              <li>Your order will be packed with care</li>
+              <li>You'll receive tracking details once shipped</li>
+              <li>Estimated delivery in 3–7 business days</li>
+            </ol>
+          </div>
+
+          <!-- Need Help -->
+          <div style="text-align:center;padding:16px;background:#FDF6EE;border-radius:10px;">
+            <p style="color:#7A6455;font-size:13px;margin:0 0 8px;">Need help with your order?</p>
+            <a href="mailto:office.gudy@gmail.com" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">📧 office.gudy@gmail.com</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="tel:+919876543210" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">📞 +91 9876543210</a>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div style="background:#2C1A0E;padding:20px;text-align:center;">
+          <p style="color:#FF9500;font-size:14px;font-weight:700;margin:0 0 4px;">GUDY Organics</p>
+          <p style="color:rgba(255,255,255,0.5);font-size:11px;margin:0;">Premium Jaggery | 100% Organic | Chemical Free</p>
+          <p style="color:rgba(255,255,255,0.3);font-size:10px;margin:8px 0 0;">© ${new Date().getFullYear()} GUDY Organics. All rights reserved.</p>
+        </div>
+
+      </div>
+    </body>
+    </html>
+  `;
+
+  await mailer.sendMail({
+    from: `"GUDY Organics" <${process.env.GMAIL_USER}>`,
+    to: customerEmail,
+    subject: `✅ Order Confirmed #GUDY-${String(order.id).padStart(5,'0')} – ₹${order.totalAmount}`,
     html,
   });
 }
@@ -973,6 +1112,8 @@ app.post('/api/cart', authenticateToken, async (req, res) => {
 app.post('/api/orders', authenticateToken, async (req, res) => {
   try {
     const { items, shippingAddress, paymentMethod, totalAmount } = req.body;
+
+    // ⚡ Only await what we NEED for the response (order insert)
     const [order] = await db.insert(orders).values({
       userId: req.user.id,
       items,
@@ -980,18 +1121,35 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
       paymentMethod: paymentMethod || 'cod',
       totalAmount: totalAmount.toString()
     }).returning();
-    
-    await db.delete(cartItems).where(eq(cartItems.userId, req.user.id));
 
-    // Send admin email notification
-    try {
-      await sendOrderNotification({ ...order, items, shippingAddress, paymentMethod, totalAmount });
-      console.log(`📧 Order notification sent for order #${order.id}`);
-    } catch (mailError) {
-      console.error('⚠️ Email notification failed (order still placed):', mailError.message);
-    }
-
+    // ✅ Respond instantly — don't block on cart delete or emails
     res.status(201).json({ message: 'Order placed', order });
+
+    // 🔥 Everything else runs in background (non-blocking)
+    const orderData = { ...order, items, shippingAddress, paymentMethod, totalAmount };
+    const customerEmail = req.user.email;
+
+    Promise.allSettled([
+      db.delete(cartItems).where(eq(cartItems.userId, req.user.id)),
+      sendOrderNotification(orderData),
+      customerEmail ? sendOrderConfirmationToCustomer(orderData, customerEmail) : Promise.resolve()
+    ]).then(([cartResult, adminResult, customerResult]) => {
+      if (cartResult.status === 'rejected') {
+        console.error('⚠️ Cart clear failed:', cartResult.reason?.message);
+      }
+      if (adminResult.status === 'fulfilled') {
+        console.log(`📧 Admin notification sent for order #${order.id}`);
+      } else {
+        console.error('⚠️ Admin email failed:', adminResult.reason?.message);
+      }
+      if (customerEmail) {
+        if (customerResult.status === 'fulfilled') {
+          console.log(`📧 Customer confirmation sent to ${customerEmail} for order #${order.id}`);
+        } else {
+          console.error('⚠️ Customer email failed:', customerResult.reason?.message);
+        }
+      }
+    });
   } catch (error) {
     res.status(500).json({ message: 'Order error' });
   }
