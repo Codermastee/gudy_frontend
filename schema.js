@@ -33,8 +33,9 @@ const orders = pgTable('orders', {
   shippingAddress: jsonb('shipping_address').notNull(),
   paymentMethod: text('payment_method').default('cod'),
   totalAmount: decimal('total_amount', { precision: 10, scale: 2 }).notNull(),
-  status: text('status').default('pending'),
+  status: text('status').default('confirmed'),
   createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
 });
 
 // Cart Items Table

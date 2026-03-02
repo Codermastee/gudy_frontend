@@ -15,6 +15,14 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
+// ==================== DATABASE & MIDDLEWARE ====================
+
+const sql = neon(process.env.DATABASE_URL);
+const db = drizzle(sql);
+
+app.use(cors());
+app.use(express.json());
+
 // ==================== NODEMAILER SETUP ====================
 
 const mailer = nodemailer.createTransport({
@@ -211,6 +219,19 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
             </ol>
           </div>
 
+          <!-- Track Your Order -->
+          <div style="background:linear-gradient(135deg,#FFF8F0,#FDF0E0);border:2px solid #F0A500;border-radius:12px;padding:20px;margin-bottom:24px;text-align:center;">
+            <h3 style="color:#6B4423;font-size:15px;margin:0 0 6px;">📦 Track Your Order</h3>
+            <p style="color:#7A6455;font-size:13px;margin:0 0 14px;">Use the Order ID below to track your shipment status</p>
+            <div style="display:inline-block;background:#fff;border:2px dashed #F0A500;border-radius:8px;padding:10px 28px;margin-bottom:14px;">
+              <span style="color:#6B4423;font-size:22px;font-weight:900;letter-spacing:2px;">#GUDY-${String(order.id).padStart(5,'0')}</span>
+            </div>
+            <p style="color:#7A6455;font-size:12px;margin:0;">
+              You can quote this ID when contacting us about your order status.<br/>
+              We'll also send you tracking details via email once your order is shipped. 🚚
+            </p>
+          </div>
+
           <!-- Need Help -->
           <div style="text-align:center;padding:16px;background:#FDF6EE;border-radius:10px;">
             <p style="color:#7A6455;font-size:13px;margin:0 0 8px;">Need help with your order?</p>
@@ -240,13 +261,6 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
     html,
   });
 }
-
-// Neon Connection
-const sql = neon(process.env.DATABASE_URL);
-const db = drizzle(sql);
-
-app.use(cors());
-app.use(express.json());
 
 // Auth Middleware
 const authenticateToken = async (req, res, next) => {
@@ -1049,7 +1063,7 @@ app.post('/api/auth/signup', async (req, res) => {
     const [newUser] = await db.insert(users).values({ name, email, password: hashedPassword }).returning();
     
     const token = jwt.sign({ userId: newUser.id }, JWT_SECRET, { expiresIn: '7d' });
-    res.status(201).json({ token, user: { id: newUser.id, name: newUser.name, email: newUser.email } });
+    res.status(201).json({ token, user: { id: newUser.id, name: newUser.name, email: newUser.email, isAdmin: newUser.isAdmin } });
   } catch (error) {
     res.status(500).json({ message: 'Signup error' });
   }
@@ -1063,7 +1077,7 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email, isAdmin: user.isAdmin } });
   } catch (error) {
     res.status(500).json({ message: 'Login error' });
   }
@@ -1075,7 +1089,8 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
       user: { 
         id: req.user.id, 
         name: req.user.name, 
-        email: req.user.email 
+        email: req.user.email,
+        isAdmin: req.user.isAdmin,
       } 
     });
   } catch (error) {
@@ -1109,6 +1124,34 @@ app.post('/api/cart', authenticateToken, async (req, res) => {
 
 // ==================== ORDER ROUTES ====================
 
+// ⚠️ PUBLIC TRACK ROUTE — must be defined BEFORE authenticated /api/orders routes
+app.get('/api/orders/track/:id', async (req, res) => {
+  try {
+    const raw = req.params.id.toString().replace(/^#?GUDY-?0*/i, '') || req.params.id;
+    const orderId = parseInt(raw, 10);
+    if (isNaN(orderId)) return res.status(400).json({ message: 'Invalid order ID' });
+
+    const [order] = await db.select().from(orders).where(eq(orders.id, orderId));
+    if (!order) return res.status(404).json({ message: 'Order not found. Please check your Order ID.' });
+
+    res.json({
+      order: {
+        id:              order.id,
+        status:          order.status || 'pending',
+        createdAt:       order.createdAt,
+        updatedAt:       order.updatedAt,
+        totalAmount:     order.totalAmount,
+        paymentMethod:   order.paymentMethod,
+        items:           order.items,
+        shippingAddress: order.shippingAddress,
+      }
+    });
+  } catch (error) {
+    console.error('❌ Track order error:', error.message);
+    res.status(500).json({ message: 'Error fetching order. Please try again.' });
+  }
+});
+
 app.post('/api/orders', authenticateToken, async (req, res) => {
   try {
     const { items, shippingAddress, paymentMethod, totalAmount } = req.body;
@@ -1119,7 +1162,8 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
       items,
       shippingAddress,
       paymentMethod: paymentMethod || 'cod',
-      totalAmount: totalAmount.toString()
+      totalAmount: totalAmount.toString(),
+      status: 'confirmed',
     }).returning();
 
     // ✅ Respond instantly — don't block on cart delete or emails
@@ -1166,6 +1210,177 @@ app.get('/api/orders', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error fetching orders' });
   }
 });
+
+// ==================== ADMIN MIDDLEWARE ====================
+
+const authenticateAdmin = async (req, res, next) => {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'Token required' });
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const [user] = await db.select().from(users).where(eq(users.id, decoded.userId));
+    if (!user) return res.status(401).json({ message: 'User not found' });
+    if (!user.isAdmin) {
+      return res.status(403).json({ message: 'Admin access only' });
+    }
+    req.user = user;
+    next();
+  } catch (error) {
+    res.status(403).json({ message: 'Invalid token' });
+  }
+};
+
+// ==================== ADMIN ORDER ROUTES ====================
+
+// GET all orders (admin)
+app.get('/api/admin/orders', authenticateAdmin, async (req, res) => {
+  try {
+    const allOrders = await db.select().from(orders).orderBy(desc(orders.createdAt));
+    res.json({ orders: allOrders });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching orders' });
+  }
+});
+
+// PATCH order status (admin) — also emails customer
+app.patch('/api/orders/:id/status', authenticateAdmin, async (req, res) => {
+  try {
+    const orderId = parseInt(req.params.id, 10);
+    if (isNaN(orderId)) return res.status(400).json({ message: 'Invalid order ID' });
+
+    const { status } = req.body;
+    const validStatuses = ['pending', 'confirmed', 'packed', 'shipped', 'delivered', 'cancelled'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: `Invalid status. Must be one of: ${validStatuses.join(', ')}` });
+    }
+
+    // NOTE: Ensure your orders schema has: status (text, default 'pending') and updatedAt (timestamp)
+    const [updated] = await db
+      .update(orders)
+      .set({ status, updatedAt: new Date() })
+      .where(eq(orders.id, orderId))
+      .returning();
+
+    if (!updated) return res.status(404).json({ message: 'Order not found' });
+
+    res.json({ message: 'Order status updated', order: updated });
+
+    // Fire status-update email to customer in background
+    const customerUserId = updated.userId;
+    if (customerUserId) {
+      db.select().from(users).where(eq(users.id, customerUserId))
+        .then(([customer]) => {
+          if (customer?.email) {
+            sendStatusUpdateEmail(updated, customer.email).catch(err =>
+              console.error('⚠️ Status email failed:', err.message)
+            );
+          }
+        })
+        .catch(err => console.error('⚠️ Could not fetch customer for status email:', err.message));
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating status' });
+  }
+});
+
+// ==================== STATUS UPDATE EMAIL ====================
+
+async function sendStatusUpdateEmail(order, customerEmail) {
+  const STATUS_META = {
+    confirmed:  { emoji: '✅', title: 'Order Confirmed!',    color: '#27AE60', msg: 'Your order has been verified and is being prepared.' },
+    packed:     { emoji: '📦', title: 'Order Packed!',       color: '#2980B9', msg: 'Your order has been carefully packed and is ready to ship.' },
+    shipped:    { emoji: '🚚', title: 'Order Shipped!',      color: '#8E44AD', msg: 'Your order is on its way! Expected delivery in 3–5 days.' },
+    delivered:  { emoji: '🎉', title: 'Order Delivered!',    color: '#27AE60', msg: 'Your order has been delivered. Enjoy your GUDY products!' },
+    cancelled:  { emoji: '❌', title: 'Order Cancelled',     color: '#C0392B', msg: 'Your order has been cancelled. Contact us if this was unexpected.' },
+    pending:    { emoji: '🕐', title: 'Order Pending',       color: '#F39C12', msg: 'Your order is pending review.' },
+  };
+
+  const meta = STATUS_META[order.status] || STATUS_META.pending;
+  const orderId = `#GUDY-${String(order.id).padStart(5, '0')}`;
+
+  const html = `
+    <!DOCTYPE html>
+    <html><head><meta charset="UTF-8"/></head>
+    <body style="margin:0;padding:0;background:#FFF8F0;font-family:Arial,sans-serif;">
+      <div style="max-width:560px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;
+                  box-shadow:0 4px 24px rgba(107,68,35,0.10);border:1px solid #f0e0cc;">
+
+        <div style="background:linear-gradient(135deg,#2C1A0E 0%,#6B4423 100%);padding:36px 28px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:8px;">${meta.emoji}</div>
+          <h1 style="color:#FF9500;margin:0 0 6px;font-size:24px;">${meta.title}</h1>
+          <p style="color:rgba(255,255,255,0.8);margin:0;font-size:14px;">GUDY Organics · Order Update</p>
+        </div>
+
+        <div style="background:#FFF3E0;padding:12px 28px;border-bottom:1px solid #f0e0cc;display:flex;
+                    justify-content:space-between;align-items:center;">
+          <span style="color:#7A6455;font-size:13px;">Order ID</span>
+          <span style="color:#6B4423;font-weight:700;font-size:15px;">${orderId}</span>
+        </div>
+
+        <div style="padding:28px;">
+          <p style="color:#2C1810;font-size:15px;margin:0 0 20px;">
+            Hi there! Here's an update on your order:
+          </p>
+
+          <div style="background:${meta.color}18;border:2px solid ${meta.color}55;border-radius:12px;
+                      padding:20px;text-align:center;margin-bottom:24px;">
+            <div style="font-size:36px;margin-bottom:8px;">${meta.emoji}</div>
+            <div style="color:${meta.color};font-size:18px;font-weight:800;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">
+              ${order.status}
+            </div>
+            <p style="color:#2C1810;font-size:14px;margin:0;">${meta.msg}</p>
+          </div>
+
+          <div style="background:#FDF6EE;border-radius:10px;padding:16px;margin-bottom:24px;">
+            <table style="width:100%;border-collapse:collapse;">
+              <tr>
+                <td style="color:#7A6455;font-size:13px;padding:4px 0;width:130px;">Total Amount</td>
+                <td style="color:#6B4423;font-weight:700;font-size:14px;">₹${order.totalAmount}</td>
+              </tr>
+              <tr>
+                <td style="color:#7A6455;font-size:13px;padding:4px 0;">Payment</td>
+                <td style="color:#2C1810;font-weight:600;font-size:14px;text-transform:uppercase;">${order.paymentMethod}</td>
+              </tr>
+              ${order.shippingAddress ? `
+              <tr>
+                <td style="color:#7A6455;font-size:13px;padding:4px 0;">Delivering To</td>
+                <td style="color:#2C1810;font-size:13px;">${order.shippingAddress.city}, ${order.shippingAddress.state}</td>
+              </tr>` : ''}
+            </table>
+          </div>
+
+          <div style="text-align:center;padding:16px;background:#FDF6EE;border-radius:10px;">
+            <p style="color:#7A6455;font-size:13px;margin:0 0 8px;">Questions about your order?</p>
+            <a href="mailto:office.gudy@gmail.com" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">
+              📧 office.gudy@gmail.com
+            </a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="tel:+919876543210" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">
+              📞 +91 9876543210
+            </a>
+          </div>
+        </div>
+
+        <div style="background:#2C1A0E;padding:20px;text-align:center;">
+          <p style="color:#FF9500;font-size:14px;font-weight:700;margin:0 0 4px;">GUDY Organics</p>
+          <p style="color:rgba(255,255,255,0.5);font-size:11px;margin:0;">Premium Jaggery · 100% Organic · Chemical Free</p>
+          <p style="color:rgba(255,255,255,0.3);font-size:10px;margin:8px 0 0;">© ${new Date().getFullYear()} GUDY Organics. All rights reserved.</p>
+        </div>
+      </div>
+    </body></html>
+  `;
+
+  await mailer.sendMail({
+    from: `"GUDY Organics" <${process.env.GMAIL_USER}>`,
+    to: customerEmail,
+    subject: `${meta.emoji} ${meta.title} – ${orderId}`,
+    html,
+  });
+
+  console.log(`📧 Status update email sent to ${customerEmail} for order ${orderId} → ${order.status}`);
+}
 
 // ==================== HEALTH & START ====================
 
