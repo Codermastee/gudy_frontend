@@ -1166,7 +1166,28 @@ app.get('/api/orders', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error fetching orders' });
   }
 });
+// Add this to server.js
+app.get('/api/orders/track/:id', async (req, res) => {
+  try {
+    const orderId = parseInt(req.params.id);
+    
+    // Query the database for the specific order
+    const orderData = await db.select()
+      .from(orders)
+      .where(eq(orders.id, orderId))
+      .limit(1);
 
+    if (orderData.length === 0) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    // Return the order (Drizzle returns an array, so we take the first element)
+    res.json({ order: orderData[0] });
+  } catch (error) {
+    console.error('Track error:', error);
+    res.status(500).json({ message: 'Error tracking order' });
+  }
+});
 // ==================== HEALTH & START ====================
 
 app.get('/api/health', async (req, res) => {
@@ -1179,14 +1200,25 @@ app.get('/api/health', async (req, res) => {
 });
 
 // Serve React build in production
-if (process.env.NODE_ENV === 'production') {
-  const path = require('path');
-  app.use(express.static(path.join(__dirname, 'build')));
-  // Catch-all: send index.html for any non-API route (enables client-side routing)
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// 1. REMOVE the "if (process.env.NODE_ENV === 'production')" block entirely.
+
+// 2. ADD a simple landing route for the backend URL
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    message: "Gudy Backend API is live",
+    status: "Healthy" 
   });
-}
+});
+
+// 3. ADD a 404 handler for any other missing routes
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found on this API" });
+});
+
+// Keep your app.listen at the bottom
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
