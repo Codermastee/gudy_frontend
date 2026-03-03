@@ -11,7 +11,14 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
+// This will try port 5000 first, but allows the system to assign a different one if needed
+
+// This will try port 5000 first, but allows the system to assign a different one if needed
 const PORT = process.env.PORT || 5000;
+
+const server = app.listen(0, () => {
+    console.log(`Server is running on port ${server.address().port}`);
+});
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
@@ -1216,7 +1223,7 @@ app.use((req, res) => {
 });
 
 // Keep your app.listen at the bottom
-app.listen(PORT, () => {
+app.listen(0, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
