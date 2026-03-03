@@ -20,14 +20,7 @@ const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const sql = neon(process.env.DATABASE_URL);
 const db = drizzle(sql);
 
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://gudyjaggery.netlify.app',
-    'https://gudybackend23.vercel.app',
-  ],
-  credentials: true,
-}));
+app.use(cors());
 app.use(express.json());
 
 // ==================== NODEMAILER SETUP ====================
@@ -1400,20 +1393,15 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// Serve React build in production
-if (process.env.NODE_ENV === 'production') {
-  const path = require('path');
-  app.use(express.static(path.join(__dirname, 'build')));
-  // Catch-all: send index.html for any non-API route (enables client-side routing)
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// Frontend is hosted on Netlify — no static serving needed here
+
+// Only listen locally — Vercel handles this in production
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📝 GROQ_API_KEY configured: ${GROQ_API_KEY ? 'YES ✅' : 'NO ❌ (using fallback responses)'}`);
+    console.log(`🌍 Supported languages: 14 (9 Indian + 5 International)`);
   });
 }
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📝 GROQ_API_KEY configured: ${GROQ_API_KEY ? 'YES ✅' : 'NO ❌ (using fallback responses)'}`);
-  console.log(`🌍 Supported languages: 14 (9 Indian + 5 International)`);
-});
 
 module.exports = app;
