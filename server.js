@@ -5,7 +5,7 @@ const { neon } = require('@neondatabase/serverless');
 const { drizzle } = require('drizzle-orm/neon-http');
 const { eq, desc } = require('drizzle-orm');
 const { users, orders, cartItems } = require('./schema');
-const { Resend } = require('resend');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
@@ -20,9 +20,20 @@ const db = drizzle(sql);
 app.use(cors());
 app.use(express.json());
 
-// ==================== RESEND SETUP ====================
+// ==================== NODEMAILER SETUP ====================
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const mailer = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
 async function sendOrderNotification(order) {
   const itemsHTML = order.items.map(item => `
@@ -92,8 +103,8 @@ async function sendOrderNotification(order) {
     </div>
   `;
 
-  await resend.emails.send({
-    from: 'GUDY Orders <onboarding@resend.dev>',
+  await mailer.sendMail({
+    from: `"GUDY Orders" <${process.env.GMAIL_USER}>`,
     to: process.env.ADMIN_EMAIL,
     subject: `🛒 New Order – ₹${order.totalAmount} from ${order.shippingAddress.fullName}`,
     html,
@@ -245,8 +256,8 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
     </html>
   `;
 
-  await resend.emails.send({
-    from: 'GUDY Organics <onboarding@resend.dev>',
+  await mailer.sendMail({
+    from: `"GUDY Organics" <${process.env.GMAIL_USER}>`,
     to: customerEmail,
     subject: `✅ Order Confirmed #GUDY-${String(order.id).padStart(5,'0')} – ₹${order.totalAmount}`,
     html,
@@ -1083,10 +1094,7 @@ app.post('/api/orders', optionalAuth, async (req, res) => {
       status: 'confirmed',
     }).returning();
 
-    // ✅ Respond instantly — don't block on cart delete or emails
-    res.status(201).json({ message: 'Order placed', order });
-
-    // 🔥 Everything else runs in background (non-blocking)
+    // Send emails BEFORE responding (Vercel kills background tasks after response)
     const orderData = { ...order, items, shippingAddress, paymentMethod, totalAmount };
     const customerEmail = req.user?.email || shippingAddress?.email;
 
@@ -1099,20 +1107,22 @@ app.post('/api/orders', optionalAuth, async (req, res) => {
       bgTasks.push(db.delete(cartItems).where(eq(cartItems.userId, req.user.id)));
     }
 
-    Promise.allSettled(bgTasks).then(([adminResult, customerResult]) => {
-      if (adminResult.status === 'fulfilled') {
-        console.log(`📧 Admin notification sent for order #${order.id}`);
+    const [adminResult, customerResult] = await Promise.allSettled(bgTasks);
+    if (adminResult.status === 'fulfilled') {
+      console.log(`📧 Admin notification sent for order #${order.id}`);
+    } else {
+      console.error('⚠️ Admin email failed:', adminResult.reason?.message);
+    }
+    if (customerEmail) {
+      if (customerResult.status === 'fulfilled') {
+        console.log(`📧 Customer confirmation sent to ${customerEmail} for order #${order.id}`);
       } else {
-        console.error('⚠️ Admin email failed:', adminResult.reason?.message);
+        console.error('⚠️ Customer email failed:', customerResult.reason?.message);
       }
-      if (customerEmail) {
-        if (customerResult.status === 'fulfilled') {
-          console.log(`📧 Customer confirmation sent to ${customerEmail} for order #${order.id}`);
-        } else {
-          console.error('⚠️ Customer email failed:', customerResult.reason?.message);
-        }
-      }
-    });
+    }
+
+    // ✅ Respond after emails are sent
+    res.status(201).json({ message: 'Order placed', order });
   } catch (error) {
     console.error('Order error:', error);
     res.status(500).json({ message: 'Order error' });
@@ -1269,8 +1279,8 @@ async function sendStatusUpdateEmail(order, customerEmail) {
     </body></html>
   `;
 
-  await resend.emails.send({
-    from: 'GUDY Organics <onboarding@resend.dev>',
+  await mailer.sendMail({
+    from: `"GUDY Organics" <${process.env.GMAIL_USER}>`,
     to: customerEmail,
     subject: `${meta.emoji} ${meta.title} – ${orderId}`,
     html,
@@ -1281,11 +1291,11 @@ async function sendStatusUpdateEmail(order, customerEmail) {
 
 app.get('/api/test-email', async (req, res) => {
   try {
-    await resend.emails.send({
-      from: 'GUDY Test <onboarding@resend.dev>',
+    await mailer.sendMail({
+      from: `"GUDY Test" <${process.env.GMAIL_USER}>`,
       to: process.env.ADMIN_EMAIL,
       subject: 'Test Email from GUDY',
-      text: 'If you see this, Resend is working!',
+      text: 'If you see this, nodemailer is working!',
     });
     res.json({ success: true, message: 'Email sent!' });
   } catch (err) {
