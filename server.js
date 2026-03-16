@@ -1,18 +1,15 @@
 const express = require('express');
 const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const { neon } = require('@neondatabase/serverless');
 const { drizzle } = require('drizzle-orm/neon-http');
-const { eq, and, desc } = require('drizzle-orm');
-const { users, products, orders, cartItems } = require('./schema');
+const { eq, desc } = require('drizzle-orm');
+const { users, orders, cartItems } = require('./schema');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 // ==================== DATABASE & MIDDLEWARE ====================
@@ -262,21 +259,16 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
   });
 }
 
-// Auth Middleware
-const authenticateToken = async (req, res, next) => {
+// ── Optional auth — sets req.user if token present, allows guests through ──
+const optionalAuth = async (req, res, next) => {
   try {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'Token required' });
-
-    const decoded = jwt.verify(token, JWT_SECRET);
-    const [user] = await db.select().from(users).where(eq(users.id, decoded.userId));
-    if (!user) return res.status(401).json({ message: 'User not found' });
-    req.user = user;
-    next();
-  } catch (error) {
-    res.status(403).json({ message: 'Invalid token' });
-  }
+    if (token) {
+      // no-op: login removed, guests always proceed
+    }
+  } catch { /* ignore */ }
+  next();
 };
 
 // ==================== EXPANDED MULTI-LANGUAGE SUPPORT ====================
@@ -1053,75 +1045,6 @@ app.get('/api/chatbot/languages', async (req, res) => {
 
 // ==================== AUTH ROUTES ====================
 
-app.post('/api/auth/signup', async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-    const [existing] = await db.select().from(users).where(eq(users.email, email));
-    if (existing) return res.status(400).json({ message: 'Email exists' });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const [newUser] = await db.insert(users).values({ name, email, password: hashedPassword }).returning();
-    
-    const token = jwt.sign({ userId: newUser.id }, JWT_SECRET, { expiresIn: '7d' });
-    res.status(201).json({ token, user: { id: newUser.id, name: newUser.name, email: newUser.email, isAdmin: newUser.isAdmin } });
-  } catch (error) {
-    res.status(500).json({ message: 'Signup error' });
-  }
-});
-
-app.post('/api/auth/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const [user] = await db.select().from(users).where(eq(users.email, email));
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email, isAdmin: user.isAdmin } });
-  } catch (error) {
-    res.status(500).json({ message: 'Login error' });
-  }
-});
-
-app.get('/api/auth/me', authenticateToken, async (req, res) => {
-  try {
-    res.json({ 
-      user: { 
-        id: req.user.id, 
-        name: req.user.name, 
-        email: req.user.email,
-        isAdmin: req.user.isAdmin,
-      } 
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching user' });
-  }
-});
-
-// ==================== CART ROUTES ====================
-
-app.get('/api/cart', authenticateToken, async (req, res) => {
-  try {
-    const items = await db.select().from(cartItems).where(eq(cartItems.userId, req.user.id));
-    res.json({ items });
-  } catch (error) {
-    res.status(500).json({ message: 'Cart fetch error' });
-  }
-});
-
-app.post('/api/cart', authenticateToken, async (req, res) => {
-  try {
-    const { items } = req.body;
-    await db.delete(cartItems).where(eq(cartItems.userId, req.user.id));
-    if (items?.length > 0) {
-      await db.insert(cartItems).values(items.map(i => ({ ...i, userId: req.user.id, productId: i.id })));
-    }
-    res.json({ message: 'Cart synced' });
-  } catch (error) {
-    res.status(500).json({ message: 'Cart update error' });
-  }
-});
-
 // ==================== ORDER ROUTES ====================
 
 // ⚠️ PUBLIC TRACK ROUTE — must be defined BEFORE authenticated /api/orders routes
@@ -1152,13 +1075,13 @@ app.get('/api/orders/track/:id', async (req, res) => {
   }
 });
 
-app.post('/api/orders', authenticateToken, async (req, res) => {
+app.post('/api/orders', optionalAuth, async (req, res) => {
   try {
     const { items, shippingAddress, paymentMethod, totalAmount } = req.body;
 
     // ⚡ Only await what we NEED for the response (order insert)
     const [order] = await db.insert(orders).values({
-      userId: req.user.id,
+      userId: req.user?.id || null,
       items,
       shippingAddress,
       paymentMethod: paymentMethod || 'cod',
@@ -1171,16 +1094,18 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
 
     // 🔥 Everything else runs in background (non-blocking)
     const orderData = { ...order, items, shippingAddress, paymentMethod, totalAmount };
-    const customerEmail = req.user.email;
+    const customerEmail = req.user?.email || shippingAddress?.email;
 
-    Promise.allSettled([
-      db.delete(cartItems).where(eq(cartItems.userId, req.user.id)),
+    const bgTasks = [
       sendOrderNotification(orderData),
       customerEmail ? sendOrderConfirmationToCustomer(orderData, customerEmail) : Promise.resolve()
-    ]).then(([cartResult, adminResult, customerResult]) => {
-      if (cartResult.status === 'rejected') {
-        console.error('⚠️ Cart clear failed:', cartResult.reason?.message);
-      }
+    ];
+    // Only clear cart for logged-in users
+    if (req.user?.id) {
+      bgTasks.push(db.delete(cartItems).where(eq(cartItems.userId, req.user.id)));
+    }
+
+    Promise.allSettled(bgTasks).then(([adminResult, customerResult]) => {
       if (adminResult.status === 'fulfilled') {
         console.log(`📧 Admin notification sent for order #${order.id}`);
       } else {
@@ -1195,41 +1120,19 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Order error:', error);
     res.status(500).json({ message: 'Order error' });
-  }
-});
-
-app.get('/api/orders', authenticateToken, async (req, res) => {
-  try {
-    const userOrders = await db.select()
-      .from(orders)
-      .where(eq(orders.userId, req.user.id))
-      .orderBy(desc(orders.createdAt));
-    res.json({ orders: userOrders });
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching orders' });
   }
 });
 
 // ==================== ADMIN MIDDLEWARE ====================
 
-const authenticateAdmin = async (req, res, next) => {
-  try {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'Token required' });
-
-    const decoded = jwt.verify(token, JWT_SECRET);
-    const [user] = await db.select().from(users).where(eq(users.id, decoded.userId));
-    if (!user) return res.status(401).json({ message: 'User not found' });
-    if (!user.isAdmin) {
-      return res.status(403).json({ message: 'Admin access only' });
-    }
-    req.user = user;
-    next();
-  } catch (error) {
-    res.status(403).json({ message: 'Invalid token' });
+const authenticateAdmin = (req, res, next) => {
+  const secret = req.headers['x-admin-secret'] || req.headers['authorization']?.replace('Bearer ', '');
+  if (!secret || secret !== process.env.ADMIN_SECRET) {
+    return res.status(401).json({ message: 'Unauthorized' });
   }
+  next();
 };
 
 // ==================== ADMIN ORDER ROUTES ====================
