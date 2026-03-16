@@ -23,10 +23,15 @@ app.use(express.json());
 // ==================== NODEMAILER SETUP ====================
 
 const mailer = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_APP_PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 
@@ -1285,6 +1290,19 @@ async function sendStatusUpdateEmail(order, customerEmail) {
   console.log(`📧 Status update email sent to ${customerEmail} for order ${orderId} → ${order.status}`);
 }
 
+app.get('/api/test-email', async (req, res) => {
+  try {
+    await mailer.sendMail({
+      from: `"GUDY Test" <${process.env.GMAIL_USER}>`,
+      to: process.env.ADMIN_EMAIL,
+      subject: 'Test Email from GUDY',
+      text: 'If you see this, nodemailer is working!',
+    });
+    res.json({ success: true, message: 'Email sent!' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 // ==================== HEALTH & START ====================
 
 app.get('/api/health', async (req, res) => {
