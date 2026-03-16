@@ -5,7 +5,7 @@ const { neon } = require('@neondatabase/serverless');
 const { drizzle } = require('drizzle-orm/neon-http');
 const { eq, desc } = require('drizzle-orm');
 const { users, orders, cartItems } = require('./schema');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 require('dotenv').config();
 
 const app = express();
@@ -20,20 +20,9 @@ const db = drizzle(sql);
 app.use(cors());
 app.use(express.json());
 
-// ==================== NODEMAILER SETUP ====================
+// ==================== RESEND SETUP ====================
 
-const mailer = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendOrderNotification(order) {
   const itemsHTML = order.items.map(item => `
@@ -103,8 +92,8 @@ async function sendOrderNotification(order) {
     </div>
   `;
 
-  await mailer.sendMail({
-    from: `"GUDY Orders" <${process.env.GMAIL_USER}>`,
+  await resend.emails.send({
+    from: 'GUDY Orders <onboarding@resend.dev>',
     to: process.env.ADMIN_EMAIL,
     subject: `🛒 New Order – ₹${order.totalAmount} from ${order.shippingAddress.fullName}`,
     html,
@@ -256,8 +245,8 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
     </html>
   `;
 
-  await mailer.sendMail({
-    from: `"GUDY Organics" <${process.env.GMAIL_USER}>`,
+  await resend.emails.send({
+    from: 'GUDY Organics <onboarding@resend.dev>',
     to: customerEmail,
     subject: `✅ Order Confirmed #GUDY-${String(order.id).padStart(5,'0')} – ₹${order.totalAmount}`,
     html,
@@ -1280,8 +1269,8 @@ async function sendStatusUpdateEmail(order, customerEmail) {
     </body></html>
   `;
 
-  await mailer.sendMail({
-    from: `"GUDY Organics" <${process.env.GMAIL_USER}>`,
+  await resend.emails.send({
+    from: 'GUDY Organics <onboarding@resend.dev>',
     to: customerEmail,
     subject: `${meta.emoji} ${meta.title} – ${orderId}`,
     html,
@@ -1292,11 +1281,11 @@ async function sendStatusUpdateEmail(order, customerEmail) {
 
 app.get('/api/test-email', async (req, res) => {
   try {
-    await mailer.sendMail({
-      from: `"GUDY Test" <${process.env.GMAIL_USER}>`,
+    await resend.emails.send({
+      from: 'GUDY Test <onboarding@resend.dev>',
       to: process.env.ADMIN_EMAIL,
       subject: 'Test Email from GUDY',
-      text: 'If you see this, nodemailer is working!',
+      text: 'If you see this, Resend is working!',
     });
     res.json({ success: true, message: 'Email sent!' });
   } catch (err) {
