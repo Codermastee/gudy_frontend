@@ -11,7 +11,7 @@ const { Resend } = require('resend');
 require('dotenv').config();
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 5000;
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const JWT_SECRET = process.env.JWT_SECRET || 'gudy_secret_change_in_production';
 
@@ -1234,11 +1234,20 @@ app.post('/api/orders', optionalAuth, async (req, res) => {
 // ==================== ADMIN MIDDLEWARE ====================
 
 const authenticateAdmin = (req, res, next) => {
-  const secret = req.headers['x-admin-secret'] || req.headers['authorization']?.replace('Bearer ', '');
-  if (!secret || secret !== process.env.ADMIN_SECRET) {
-    return res.status(401).json({ message: 'Unauthorized' });
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return res.status(403).json({ message: 'Token required' });
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (decoded.email !== 'office.gudy@gmail.com') {
+      return res.status(403).json({ message: 'Admin access only' });
+    }
+    req.user = decoded;
+    next();
+  } catch {
+    return res.status(403).json({ message: 'Invalid or expired token' });
   }
-  next();
 };
 
 // ==================== ADMIN ORDER ROUTES ====================
