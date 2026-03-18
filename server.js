@@ -556,16 +556,23 @@ const languageNames = {
 
 const productData = {
   powder: [
-    { id: 'pw1kg', name: 'Jaggery Powder 1kg', price: 99, weight: '1kg', category: 'powder' },
-    { id: 'pw2kg', name: 'Jaggery Powder 2kg', price: 199, weight: '2kg', category: 'powder' },
-    { id: 'pw3kg', name: 'Jaggery Powder 3kg', price: 299, weight: '3kg', category: 'powder' },
-    { id: 'pw5kg', name: 'Jaggery Powder 5kg', price: 399, weight: '5kg', category: 'powder' }
+    { id: 'powder-jar-750g-set-of-3', name: 'Jaggery Powder Jar 750G, Set of 3 - Total 2.250 KG', price: 270, weight: '2.25kg', category: 'powder' },
+    { id: 'powder-jar-750g-set-of-2', name: 'Jaggery Powder Jar 750G, Set of 2 - Total 1.500 KG', price: 180, weight: '1.5kg',  category: 'powder' },
+    { id: 'powder-jar-750g-set-of-1', name: 'Jaggery Powder Jar 750G - Total 750g',               price: 90,  weight: '750g',   category: 'powder' },
+    { id: 'powder-jar-500g-set-of-3', name: 'Jaggery Powder Jar 500G, Set of 3 - Total 1.5 KG',  price: 180, weight: '1.5kg',  category: 'powder' },
+    { id: 'powder-jar-500g-set-of-2', name: 'Jaggery Powder Jar 500G, Set of 2 - Total 1 KG',    price: 120, weight: '1kg',    category: 'powder' },
+    { id: 'powder-jar-500g-set-of-1', name: 'Jaggery Powder Jar 500G - Total 500g',               price: 60,  weight: '500g',  category: 'powder' },
+    { id: 'powder-jar-250g-set-of-3', name: 'Jaggery Powder Jar 250G, Set of 3 - Total 750g',    price: 90,  weight: '750g',  category: 'powder' },
+    { id: 'powder-jar-250g-set-of-2', name: 'Jaggery Powder Jar 250G, Set of 2 - Total 500g',    price: 60,  weight: '500g',  category: 'powder' },
+    { id: 'powder-jar-250g-set-of-1', name: 'Jaggery Powder Jar 250G - Total 250g',               price: 30,  weight: '250g', category: 'powder' },
   ],
   cubes: [
-    { id: 'cb1kg', name: 'Jaggery Cubes 1kg', price: 198, weight: '1kg', category: 'cubes' },
-    { id: 'cb2kg', name: 'Jaggery Cubes 2kg', price: 398, weight: '2kg', category: 'cubes' },
-    { id: 'cb3kg', name: 'Jaggery Cubes 3kg', price: 598, weight: '3kg', category: 'cubes' },
-    { id: 'cb5kg', name: 'Jaggery Cubes 5kg', price: 798, weight: '5kg', category: 'cubes' }
+    { id: 'cubes-jar-500g-set-of-3', name: 'Jaggery Cubes Jar 500G, Set of 3 - Total 1.5 KG', price: 600, weight: '1.5kg', category: 'cubes' },
+    { id: 'cubes-jar-500g-set-of-2', name: 'Jaggery Cubes Jar 500G, Set of 2 - Total 1 KG',   price: 400, weight: '1kg',   category: 'cubes' },
+    { id: 'cubes-jar-500g-set-of-1', name: 'Jaggery Cubes Jar 500G - Total 500g',              price: 200, weight: '500g', category: 'cubes' },
+    { id: 'cubes-jar-250g-set-of-3', name: 'Jaggery Cubes Jar 250G, Set of 3 - Total 750g',   price: 300, weight: '750g', category: 'cubes' },
+    { id: 'cubes-jar-250g-set-of-2', name: 'Jaggery Cubes Jar 250G, Set of 2 - Total 500g',   price: 200, weight: '500g', category: 'cubes' },
+    { id: 'cubes-jar-250g-set-of-1', name: 'Jaggery Cubes Jar 250G - Total 250g',              price: 100, weight: '250g', category: 'cubes' },
   ]
 };
 
@@ -600,17 +607,24 @@ async function buildSystemPrompt(userId, language = 'en') {
   const systemPrompt = `You are a helpful, friendly customer support assistant for GUDY, an online jaggery (gur/வெல்லம்/బెల్లం) store.
 
 PRODUCT CATALOG:
-🍯 Jaggery Powder:
-- 1kg: ₹99
-- 2kg: ₹199
-- 3kg: ₹299
-- 5kg: ₹399
+🍯 Jaggery Powder Jars:
+- 750G x3 (2.25 KG): ₹270
+- 750G x2 (1.5 KG):  ₹180
+- 750G x1 (750g):    ₹90
+- 500G x3 (1.5 KG):  ₹180
+- 500G x2 (1 KG):    ₹120
+- 500G x1 (500g):    ₹60
+- 250G x3 (750g):    ₹90
+- 250G x2 (500g):    ₹60
+- 250G x1 (250g):    ₹30
 
-🧊 Jaggery Cubes:
-- 1kg: ₹198
-- 2kg: ₹398
-- 3kg: ₹598
-- 5kg: ₹798
+🧊 Jaggery Cubes Jars:
+- 500G x3 (1.5 KG):  ₹600
+- 500G x2 (1 KG):    ₹400
+- 500G x1 (500g):    ₹200
+- 250G x3 (750g):    ₹300
+- 250G x2 (500g):    ₹200
+- 250G x1 (250g):    ₹100
 
 CONTACT INFORMATION:
 📞 Phone: ${t.contact.phone}
@@ -635,7 +649,7 @@ TONE & STYLE:
 - Provide specific product recommendations based on customer needs
 - Reference customer's order history when relevant
 - Highlight health benefits of jaggery (iron-rich, natural sweetener, immunity booster)
-- If asked about orders, refer to the order history if available
+- If asked about order status or tracking, ask the customer to share their Order ID (format: #GUDY-XXXXX)
 - Keep responses concise and actionable
 - Suggest quick replies for common actions
 - Be proactive in helping customers complete purchases
@@ -765,12 +779,12 @@ function generateFallbackResponse(message, language = 'en') {
       msgLower.includes('தயாரிப்பு') || msgLower.includes('பொடி') || msgLower.includes('उत्पाद') || 
       msgLower.includes('పొడి') || msgLower.includes('ఉత్పత్తి')) {
     const productMessages = {
-      en: "We offer premium Jaggery Powder and Jaggery Cubes in various sizes:\n\n🍯 POWDER PACKS:\n• 1kg - ₹99\n• 2kg - ₹199\n• 3kg - ₹299\n• 5kg - ₹399\n\n🧊 CUBE PACKS:\n• 1kg - ₹198\n• 2kg - ₹398\n• 3kg - ₹598\n• 5kg - ₹798",
-      hi: "हम विभिन्न आकारों में प्रीमियम गुड़ पाउडर और गुड़ क्यूब्स प्रदान करते हैं:\n\n🍯 पाउडर पैक:\n• 1kg - ₹99\n• 2kg - ₹199\n• 3kg - ₹299\n• 5kg - ₹399\n\n🧊 क्यूब पैक:\n• 1kg - ₹198\n• 2kg - ₹398\n• 3kg - ₹598\n• 5kg - ₹798",
-      ta: "பல்வேறு அளவுகளில் பிரீமியம் வெல்லம் பொடி மற்றும் வெல்லம் க்யூப்ஸ் வழங்குகிறோம்:\n\n🍯 பொடி பேக்குகள்:\n• 1kg - ₹99\n• 2kg - ₹199\n• 3kg - ₹299\n• 5kg - ₹399\n\n🧊 க்யூப் பேக்குகள்:\n• 1kg - ₹198\n• 2kg - ₹398\n• 3kg - ₹598\n• 5kg - ₹798",
-      te: "మేము వివిధ పరిమాణాలలో ప్రీమియం బెల్లం పొడి మరియు బెల్లం క్యూబ్స్ అందిస్తాము:\n\n🍯 పొడి పాక్‌లు:\n• 1kg - ₹99\n• 2kg - ₹199\n• 3kg - ₹299\n• 5kg - ₹399\n\n🧊 క్యూబ్ పాక్‌లు:\n• 1kg - ₹198\n• 2kg - ₹398\n• 3kg - ₹598\n• 5kg - ₹798",
-      kn: "ನಾವು ವಿವಿಧ ಗಾತ್ರಗಳಲ್ಲಿ ಪ್ರೀಮಿಯಂ ಬೆಲ್ಲದ ಪುಡಿ ಮತ್ತು ಬೆಲ್ಲದ ಕ್ಯೂಬ್ಸ್ ನೀಡುತ್ತೇವೆ:\n\n🍯 ಪುಡಿ ಪ್ಯಾಕ್‌ಗಳು:\n• 1kg - ₹99\n• 2kg - ₹199\n• 3kg - ₹299\n• 5kg - ₹399\n\n🧊 ಕ್ಯೂಬ್ ಪ್ಯಾಕ್‌ಗಳು:\n• 1kg - ₹198\n• 2kg - ₹398\n• 3kg - ₹598\n• 5kg - ₹798",
-      ml: "ഞങ്ങൾ വിവിധ വലുപ്പങ്ങളിൽ പ്രീമിയം ശർക്കര പൊടിയും ശർക്കര ക്യൂബുകളും വാഗ്ദാനം ചെയ്യുന്നു:\n\n🍯 പൊടി പായ്ക്കുകൾ:\n• 1kg - ₹99\n• 2kg - ₹199\n• 3kg - ₹299\n• 5kg - ₹399\n\n🧊 ക്യൂബ് പായ്ക്കുകൾ:\n• 1kg - ₹198\n• 2kg - ₹398\n• 3kg - ₹598\n• 5kg - ₹798"
+      en: "We offer premium Jaggery Powder and Jaggery Cubes in various jar sizes:\n\n🍯 POWDER JARS:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 CUBES JARS:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      hi: "हम विभिन्न आकारों में प्रीमियम गुड़ पाउडर और गुड़ क्यूब्स प्रदान करते हैं:\n\n🍯 पाउडर जार:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 क्यूब्स जार:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      ta: "பல்வேறு அளவுகளில் பிரீமியம் வெல்லம் பொடி மற்றும் வெல்லம் க்யூப்ஸ் வழங்குகிறோம்:\n\n🍯 பொடி ஜார்கள்:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 க்யூப்ஸ் ஜார்கள்:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      te: "మేము వివిధ పరిమాణాలలో ప్రీమియం బెల్లం పొడి మరియు బెల్లం క్యూబ్స్ అందిస్తాము:\n\n🍯 పొడి జార్లు:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 క్యూబ్స్ జార్లు:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      kn: "ನಾವು ವಿವಿಧ ಗಾತ್ರಗಳಲ್ಲಿ ಪ್ರೀಮಿಯಂ ಬೆಲ್ಲದ ಪುಡಿ ಮತ್ತು ಬೆಲ್ಲದ ಕ್ಯೂಬ್ಸ್ ನೀಡುತ್ತೇವೆ:\n\n🍯 ಪುಡಿ ಜಾರ್‌ಗಳು:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 ಕ್ಯೂಬ್ಸ್ ಜಾರ್‌ಗಳು:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      ml: "ഞങ്ങൾ വിവിധ വലുപ്പങ്ങളിൽ പ്രീമിയം ശർക്കര പൊടിയും ശർക്കര ക്യൂബുകളും വാഗ്ദാനം ചെയ്യുന്നു:\n\n🍯 പൊടി ജാറുകൾ:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 ക്യൂബ്സ് ജാറുകൾ:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100"
     };
     return {
       message: productMessages[language] || productMessages.en,
@@ -867,16 +881,16 @@ function generateFallbackResponse(message, language = 'en') {
       msgLower.includes('விலை') || msgLower.includes('விலை') || msgLower.includes('कीमत') || 
       msgLower.includes('ధర') || msgLower.includes('ಬೆಲೆ')) {
     const priceMessages = {
-      en: "Here are our prices:\n\n🍯 JAGGERY POWDER:\n• 1kg - ₹99 (67% off)\n• 2kg - ₹199 (67% off)\n• 3kg - ₹299 (67% off)\n• 5kg - ₹399 (73% off)\n\n🧊 JAGGERY CUBES:\n• 1kg - ₹198 (67% off)\n• 2kg - ₹398 (67% off)\n• 3kg - ₹598 (67% off)\n• 5kg - ₹798 (73% off)",
-      hi: "यहाँ हमारी कीमतें हैं:\n\n🍯 गुड़ पाउडर:\n• 1kg - ₹99 (67% छूट)\n• 2kg - ₹199 (67% छूट)\n• 3kg - ₹299 (67% छूट)\n• 5kg - ₹399 (73% छूट)\n\n🧊 गुड़ क्यूब्स:\n• 1kg - ₹198 (67% छूट)\n• 2kg - ₹398 (67% छूट)\n• 3kg - ₹598 (67% छूट)\n• 5kg - ₹798 (73% छूट)",
-      ta: "எங்கள் விலைகள் இதோ:\n\n🍯 வெல்லம் பொடி:\n• 1kg - ₹99 (67% தள்ளுபடி)\n• 2kg - ₹199 (67% தள்ளுபடி)\n• 3kg - ₹299 (67% தள்ளுபடி)\n• 5kg - ₹399 (73% தள்ளுபடி)\n\n🧊 வெல்லம் க்யூப்ஸ்:\n• 1kg - ₹198 (67% தள்ளுபடி)\n• 2kg - ₹398 (67% தள்ளுபடி)\n• 3kg - ₹598 (67% தள்ளுபடி)\n• 5kg - ₹798 (73% தள்ளுபடி)",
-      te: "మా ధరలు ఇవి:\n\n🍯 బెల్లం పౌడర్:\n• 1kg - ₹99 (67% డిస్కౌంట్)\n• 2kg - ₹199 (67% డిస్కౌంట్)\n• 3kg - ₹299 (67% డిస్కౌంట్)\n• 5kg - ₹399 (73% డిస్కౌంట్)\n\n🧊 బెల్లం క్యూబ్స్:\n• 1kg - ₹198 (67% డిస్కౌంట్)\n• 2kg - ₹398 (67% డిస్కౌంట్)\n• 3kg - ₹598 (67% డిస్కౌంట్)\n• 5kg - ₹798 (73% డిస్కౌంట్)",
-      kn: "ನಮ್ಮ ಬೆಲೆಗಳು ಇವು:\n\n🍯 ಬೆಲ್ಲದ ಪುಡಿ:\n• 1kg - ₹99 (67% ರಿಯಾಯಿತಿ)\n• 2kg - ₹199 (67% ರಿಯಾಯಿತಿ)\n• 3kg - ₹299 (67% ರಿಯಾಯಿತಿ)\n• 5kg - ₹399 (73% ರಿಯಾಯಿತಿ)\n\n🧊 ಬೆಲ್ಲದ ಕ್ಯೂಬ್ಸ್:\n• 1kg - ₹198 (67% ರಿಯಾಯಿತಿ)\n• 2kg - ₹398 (67% ರಿಯಾಯಿತಿ)\n• 3kg - ₹598 (67% ರಿಯಾಯಿತಿ)\n• 5kg - ₹798 (73% ರಿಯಾಯಿತಿ)",
-      ml: "ഞങ്ങളുടെ വിലകൾ ഇതാ:\n\n🍯 ശർക്കര പൊടി:\n• 1kg - ₹99 (67% കിഴിവ്)\n• 2kg - ₹199 (67% കിഴിവ്)\n• 3kg - ₹299 (67% കിഴിവ്)\n• 5kg - ₹399 (73% കിഴിവ്)\n\n🧊 ശർക്കര ക്യൂബുകൾ:\n• 1kg - ₹198 (67% കിഴിവ്)\n• 2kg - ₹398 (67% കിഴിവ്)\n• 3kg - ₹598 (67% കിഴിവ്)\n• 5kg - ₹798 (73% കിഴിവ്)",
-      mr: "आमच्या किंमती येथे आहेत:\n\n🍯 गूळ पावडर:\n• 1kg - ₹99 (67% सूट)\n• 2kg - ₹199 (67% सूट)\n• 3kg - ₹299 (67% सूट)\n• 5kg - ₹399 (73% सूट)\n\n🧊 गूळ क्यूब्स:\n• 1kg - ₹198 (67% सूट)\n• 2kg - ₹398 (67% सूट)\n• 3kg - ₹598 (67% सूट)\n• 5kg - ₹798 (73% सूट)",
-      bn: "আমাদের দাম এখানে:\n\n🍯 গুড় পাউডার:\n• 1kg - ₹99 (67% ছাড়)\n• 2kg - ₹199 (67% ছাড়)\n• 3kg - ₹299 (67% ছাড়)\n• 5kg - ₹399 (73% ছাড়)\n\n🧊 গুড় কিউবস:\n• 1kg - ₹198 (67% ছাড়)\n• 2kg - ₹398 (67% ছাড়)\n• 3kg - ₹598 (67% ছাড়)\n• 5kg - ₹798 (73% ছাড়)",
-      gu: "અમારી કિંમતો અહીં છે:\n\n🍯 ગોળ પાવડર:\n• 1kg - ₹99 (67% છૂટ)\n• 2kg - ₹199 (67% છૂટ)\n• 3kg - ₹299 (67% છૂટ)\n• 5kg - ₹399 (73% છૂટ)\n\n🧊 ગોળ ક્યુબ્સ:\n• 1kg - ₹198 (67% છૂટ)\n• 2kg - ₹398 (67% છૂટ)\n• 3kg - ₹598 (67% છૂટ)\n• 5kg - ₹798 (73% છૂટ)",
-      pa: "ਸਾਡੀਆਂ ਕੀਮਤਾਂ ਇੱਥੇ ਹਨ:\n\n🍯 ਗੁੜ ਪਾਊਡਰ:\n• 1kg - ₹99 (67% ਛੂਟ)\n• 2kg - ₹199 (67% ਛੂਟ)\n• 3kg - ₹299 (67% ਛੂਟ)\n• 5kg - ₹399 (73% ਛੂਟ)\n\n🧊 ਗੁੜ ਕਿਊਬਸ:\n• 1kg - ₹198 (67% ਛੂਟ)\n• 2kg - ₹398 (67% ਛੂਟ)\n• 3kg - ₹598 (67% ਛੂਟ)\n• 5kg - ₹798 (73% ਛੂਟ)"
+      en: "Here are our prices:\n\n🍯 JAGGERY POWDER JARS:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 JAGGERY CUBES JARS:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      hi: "यहाँ हमारी कीमतें हैं:\n\n🍯 गुड़ पाउडर जार:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 गुड़ क्यूब्स जार:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      ta: "எங்கள் விலைகள் இதோ:\n\n🍯 வெல்லம் பொடி ஜார்கள்:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 வெல்லம் க்யூப்ஸ் ஜார்கள்:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      te: "మా ధరలు ఇవి:\n\n🍯 బెల్లం పొడి జార్లు:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 బెల్లం క్యూబ్స్ జార్లు:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      kn: "ನಮ್ಮ ಬೆಲೆಗಳು ಇವು:\n\n🍯 ಬೆಲ್ಲದ ಪುಡಿ ಜಾರ್‌ಗಳು:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 ಬೆಲ್ಲದ ಕ್ಯೂಬ್ಸ್ ಜಾರ್‌ಗಳು:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      ml: "ഞങ്ങളുടെ വിലകൾ ഇതാ:\n\n🍯 ശർക്കര പൊടി ജാറുകൾ:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 ശർക്കര ക്യൂബ്സ് ജാറുകൾ:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      mr: "आमच्या किंमती येथे आहेत:\n\n🍯 गूळ पावडर जार:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 गूळ क्यूब्स जार:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      bn: "আমাদের দাম এখানে:\n\n🍯 গুড় পাউডার জার:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 গুড় কিউবস জার:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      gu: "અમારી કિંમતો અહીં છે:\n\n🍯 ગોળ પાવડર જાર:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 ગોળ ક્યુબ્સ જાર:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100",
+      pa: "ਸਾਡੀਆਂ ਕੀਮਤਾਂ ਇੱਥੇ ਹਨ:\n\n🍯 ਗੁੜ ਪਾਊਡਰ ਜਾਰ:\n• 750G x3 (2.25 KG) - ₹270\n• 750G x2 (1.5 KG)  - ₹180\n• 750G x1 (750g)    - ₹90\n• 500G x3 (1.5 KG)  - ₹180\n• 500G x2 (1 KG)    - ₹120\n• 500G x1 (500g)    - ₹60\n• 250G x3 (750g)    - ₹90\n• 250G x2 (500g)    - ₹60\n• 250G x1 (250g)    - ₹30\n\n🧊 ਗੁੜ ਕਿਊਬਸ ਜਾਰ:\n• 500G x3 (1.5 KG)  - ₹600\n• 500G x2 (1 KG)    - ₹400\n• 500G x1 (500g)    - ₹200\n• 250G x3 (750g)    - ₹300\n• 250G x2 (500g)    - ₹200\n• 250G x1 (250g)    - ₹100"
     };
     return {
       message: priceMessages[language] || priceMessages.en,
@@ -909,16 +923,16 @@ function generateFallbackResponse(message, language = 'en') {
       msgLower.includes('கண்காணி') || msgLower.includes('ஆர்டர்') || msgLower.includes('ट्रैक') || 
       msgLower.includes('ऑर्डर') || msgLower.includes('ట్రాక్')) {
     const trackMessages = {
-      en: "To track your order:\n\n1. Log in to your account\n2. Go to 'My Orders' section\n3. Click on the order you want to track\n\nYou can also contact our support team:\n📞 Phone: +91 7373755589\n💬 WhatsApp: +91 7373755589",
-      hi: "अपने ऑर्डर को ट्रैक करने के लिए:\n\n1. अपने खाते में लॉग इन करें\n2. 'मेरे ऑर्डर' अनुभाग पर जाएं\n3. उस ऑर्डर पर क्लिक करें जिसे आप ट्रैक करना चाहते हैं\n\nआप हमारी सहायता टीम से भी संपर्क कर सकते हैं:\n📞 फोन: +91 7373755589\n💬 WhatsApp: +91 7373755589",
-      ta: "உங்கள் ஆர்டரை கண்காணிக்க:\n\n1. உங்கள் கணக்கில் உள்நுழையவும்\n2. 'எனது ஆர்டர்கள்' பிரிவுக்குச் செல்லவும்\n3. நீங்கள் கண்காணிக்க விரும்பும் ஆர்டரில் கிளிக் செய்யவும்\n\nநீங்கள் எங்கள் ஆதரவு குழுவையும் தொடர்பு கொள்ளலாம்:\n📞 தொலைபேசி: +91 7373755589\n💬 WhatsApp: +91 7373755589",
-      te: "మీ ఆర్డర్‌ను ట్రాక్ చేయడానికి:\n\n1. మీ ఖాతాలోకి లాగిన్ అవ్వండి\n2. 'నా ఆర్డర్లు' విభాగానికి వెళ్లండి\n3. మీరు ట్రాక్ చేయాలనుకుంటున్న ఆర్డర్‌పై క్లిక్ చేయండి\n\nమీరు మా మద్దతు బృందాన్ని కూడా సంప్రదించవచ్చు:\n📞 ఫోన్: +91 7373755589\n💬 WhatsApp: +91 7373755589",
-      kn: "ನಿಮ್ಮ ಆರ್ಡರ್ ಅನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು:\n\n1. ನಿಮ್ಮ ಖಾತೆಗೆ ಲಾಗ್ ಇನ್ ಮಾಡಿ\n2. 'ನನ್ನ ಆರ್ಡರ್‌ಗಳು' ವಿಭಾಗಕ್ಕೆ ಹೋಗಿ\n3. ನೀವು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ಬಯಸುವ ಆರ್ಡರ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ\n\nನೀವು ನಮ್ಮ ಬೆಂಬಲ ತಂಡವನ್ನು ಸಹ ಸಂಪರ್ಕಿಸಬಹುದು:\n📞 ಫೋನ್: +91 7373755589\n💬 WhatsApp: +91 7373755589",
-      ml: "നിങ്ങളുടെ ഓർഡർ ട്രാക്ക് ചെയ്യാൻ:\n\n1. നിങ്ങളുടെ അക്കൗണ്ടിലേക്ക് ലോഗിൻ ചെയ്യുക\n2. 'എന്റെ ഓർഡറുകൾ' വിഭാഗത്തിലേക്ക് പോകുക\n3. നിങ്ങൾ ട്രാക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഓർഡറിൽ ക്ലിക്ക് ചെയ്യുക\n\nനിങ്ങൾക്ക് ഞങ്ങളുടെ പിന്തുണാ ടീമിനെയും ബന്ധപ്പെടാം:\n📞 ഫോൺ: +91 7373755589\n💬 WhatsApp: +91 7373755589"
+      en: "📦 To check your order status, please share your Order ID.\n\nYour Order ID looks like: #GUDY-00042\n(You can find it in your order confirmation email)\n\nOr contact us directly:\n📞 +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      hi: "📦 अपने ऑर्डर की स्थिति जांचने के लिए, कृपया अपना ऑर्डर ID शेयर करें।\n\nऑर्डर ID इस तरह दिखता है: #GUDY-00042\n(यह आपके ऑर्डर कन्फर्मेशन ईमेल में मिलेगा)\n\nया सीधे संपर्क करें:\n📞 +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      ta: "📦 உங்கள் ஆர்டர் நிலையை சரிபார்க்க, உங்கள் ஆர்டர் ID ஐ பகிரவும்.\n\nஆர்டர் ID இப்படி இருக்கும்: #GUDY-00042\n(உங்கள் ஆர்டர் உறுதிப்படுத்தல் மின்னஞ்சலில் காணலாம்)\n\nநேரடியாக தொடர்பு கொள்ள:\n📞 +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      te: "📦 మీ ఆర్డర్ స్థితిని తనిఖీ చేయడానికి, మీ ఆర్డర్ ID షేర్ చేయండి.\n\nఆర్డర్ ID ఇలా ఉంటుంది: #GUDY-00042\n(మీ ఆర్డర్ నిర్ధారణ ఇమెయిల్‌లో కనుగొనవచ్చు)\n\nనేరుగా సంప్రదించండి:\n📞 +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      kn: "📦 ನಿಮ್ಮ ಆರ್ಡರ್ ಸ್ಥಿತಿಯನ್ನು ತಿಳಿಯಲು, ನಿಮ್ಮ ಆರ್ಡರ್ ID ಹಂಚಿಕೊಳ್ಳಿ.\n\nಆರ್ಡರ್ ID ಹೀಗಿರುತ್ತದೆ: #GUDY-00042\n(ನಿಮ್ಮ ಆರ್ಡರ್ ದೃಢೀಕರಣ ಇಮೇಲ್‌ನಲ್ಲಿ ಕಾಣಬಹುದು)\n\nನೇರವಾಗಿ ಸಂಪರ್ಕಿಸಿ:\n📞 +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      ml: "📦 നിങ്ങളുടെ ഓർഡർ സ്ഥിതി പരിശോധിക്കാൻ, ഓർഡർ ID പങ്കിടുക.\n\nഓർഡർ ID ഇങ്ങനെ കാണപ്പെടും: #GUDY-00042\n(ഓർഡർ സ്ഥിരീകരണ ഇമെയിലിൽ കണ്ടെത്താം)\n\nനേരിട്ട് ബന്ധപ്പെടുക:\n📞 +91 7373755589\n💬 WhatsApp: +91 7373755589"
     };
     return {
       message: trackMessages[language] || trackMessages.en,
-      quickReplies: generateQuickReplies(message, language)
+      quickReplies: ['Contact support', 'View products']
     };
   }
 
@@ -954,6 +968,47 @@ function generateFallbackResponse(message, language = 'en') {
 
 // ==================== CHATBOT ROUTES ====================
 
+// Helper: extract and look up a GUDY order ID from a message
+async function lookupOrderFromMessage(message) {
+  // Match patterns: GUDY-00042, #GUDY-42, gudy00042, just "42" after track/order keywords
+  const patterns = [
+    /(?:#?GUDY-?)(\d+)/i,
+    /(?:order|ऑर्डर|ஆர்டர்|ఆర్డర్|ಆರ್ಡರ್|ഓർഡർ|অর্ডার|ઓર્ડર|ਆਰਡਰ)[^\d]*(\d+)/i,
+    /\b(\d{1,6})\b/
+  ];
+  let orderId = null;
+  for (const pattern of patterns) {
+    const match = message.match(pattern);
+    if (match) { orderId = parseInt(match[1] || match[2], 10); break; }
+  }
+  if (!orderId || isNaN(orderId)) return null;
+  try {
+    const [order] = await db.select().from(orders).where(eq(orders.id, orderId));
+    return order || null;
+  } catch { return null; }
+}
+
+// Helper: format a live order status reply
+function formatOrderStatusReply(order, language) {
+  const STATUS_EMOJI = { pending: '🕐', confirmed: '✅', packed: '📦', shipped: '🚚', delivered: '🎉', cancelled: '❌' };
+  const emoji = STATUS_EMOJI[order.status] || '📦';
+  const orderId = `#GUDY-${String(order.id).padStart(5, '0')}`;
+  const date = new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const items = Array.isArray(order.items)
+    ? order.items.map(i => `• ${i.name} x${i.quantity} — ₹${i.priceINR * i.quantity}`).join('\n')
+    : '';
+
+  const templates = {
+    en: `${emoji} Order Status for ${orderId}\n\n📅 Placed: ${date}\n🔖 Status: ${order.status.toUpperCase()}\n💰 Total: ₹${order.totalAmount}\n💳 Payment: ${order.paymentMethod?.toUpperCase()}\n\n🛍️ Items:\n${items}\n\n📍 Delivering to: ${order.shippingAddress?.city}, ${order.shippingAddress?.state}`,
+    hi: `${emoji} ऑर्डर स्थिति ${orderId}\n\n📅 दिनांक: ${date}\n🔖 स्थिति: ${order.status.toUpperCase()}\n💰 कुल: ₹${order.totalAmount}\n💳 भुगतान: ${order.paymentMethod?.toUpperCase()}\n\n🛍️ आइटम:\n${items}\n\n📍 डिलीवरी: ${order.shippingAddress?.city}, ${order.shippingAddress?.state}`,
+    ta: `${emoji} ஆர்டர் நிலை ${orderId}\n\n📅 தேதி: ${date}\n🔖 நிலை: ${order.status.toUpperCase()}\n💰 மொத்தம்: ₹${order.totalAmount}\n💳 பணம்: ${order.paymentMethod?.toUpperCase()}\n\n🛍️ பொருட்கள்:\n${items}\n\n📍 டெலிவரி: ${order.shippingAddress?.city}, ${order.shippingAddress?.state}`,
+    te: `${emoji} ఆర్డర్ స్థితి ${orderId}\n\n📅 తేదీ: ${date}\n🔖 స్థితి: ${order.status.toUpperCase()}\n💰 మొత్తం: ₹${order.totalAmount}\n💳 చెల్లింపు: ${order.paymentMethod?.toUpperCase()}\n\n🛍️ వస్తువులు:\n${items}\n\n📍 డెలివరీ: ${order.shippingAddress?.city}, ${order.shippingAddress?.state}`,
+  };
+
+  return (templates[language] || templates.en) +
+    `\n\nNeed help? 📞 +91 7373755589`;
+}
+
 app.post('/api/chatbot/message', async (req, res) => {
   try {
     const { message, userId, language = 'en', conversationHistory = [] } = req.body;
@@ -967,6 +1022,23 @@ app.post('/api/chatbot/message', async (req, res) => {
 
     const supportedLanguages = ['en', 'hi', 'ta', 'te', 'kn', 'ml', 'mr', 'bn', 'gu', 'pa', 'es', 'fr', 'de', 'ar'];
     const lang = supportedLanguages.includes(language) ? language : 'en';
+
+    // ── Live order lookup: intercept track/status + order ID before AI/fallback ──
+    const msgLowerCheck = message.toLowerCase();
+    const isOrderQuery = msgLowerCheck.includes('track') || msgLowerCheck.includes('order') ||
+      msgLowerCheck.includes('status') || msgLowerCheck.includes('ऑर्डर') ||
+      msgLowerCheck.includes('ஆர்டர்') || msgLowerCheck.includes('ఆర్డర్') ||
+      msgLowerCheck.includes('gudy') || /\d{1,6}/.test(message);
+
+    if (isOrderQuery) {
+      const order = await lookupOrderFromMessage(message);
+      if (order) {
+        return res.json({
+          message: formatOrderStatusReply(order, lang),
+          quickReplies: ['Track another order', 'Contact support', 'View products']
+        });
+      }
+    }
 
     if (!GROQ_API_KEY || GROQ_API_KEY.trim() === '') {
       console.log('⚠️ GROQ_API_KEY not configured. Using fallback responses.');
