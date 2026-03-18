@@ -231,7 +231,7 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
             <p style="color:#7A6455;font-size:13px;margin:0 0 8px;">Need help with your order?</p>
             <a href="mailto:office.gudy@gmail.com" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">📧 office.gudy@gmail.com</a>
             &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="tel:+919876543210" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">📞 +91 9876543210</a>
+            <a href="tel:+917373755589" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">📞 +91 7373755589</a>
           </div>
 
         </div>
@@ -289,20 +289,20 @@ const translations = {
   en: {
     greeting: "Hello! 👋 Welcome to GUDY! I'm here to help you with our premium jaggery products. How can I assist you today?",
     contact: {
-      phone: '+91 9876543210',
-      email: 'support@gudy.com',
-      whatsapp: '+91 9876543210',
+      phone: '+91 7373755589',
+      email: 'office.gudy@gmail.com',
+      whatsapp: '+91 7373755589',
       hours: 'Monday to Saturday, 9 AM - 6 PM'
     },
     faqs: {
-      shipping: 'We offer FREE shipping on all orders above ₹299. For orders below ₹299, standard shipping charges of ₹40 apply.',
+      shipping: 'Standard shipping charges of ₹40 apply on all orders.',
       delivery: 'Delivery typically takes 3-7 business days depending on your location. Metro cities receive orders within 3-4 days.',
       cod: 'Yes! We accept Cash on Delivery (COD) for all orders. You can also pay online using UPI, cards, or net banking.',
       returns: 'We have a 7-day return policy. If you receive a damaged or defective product, contact us within 7 days for a replacement or refund.',
       storage: 'Store in a cool, dry place in an airtight container. Keep away from moisture to prevent hardening.',
       expiry: 'Our jaggery products have a shelf life of 12 months from the date of manufacturing when stored properly.',
       organic: 'Yes, our jaggery is made from 100% organic sugarcane grown without pesticides or chemicals.',
-      bulk: 'Yes! For bulk orders above 50kg, please contact us for special pricing. WhatsApp: +91 9876543210'
+      bulk: 'Yes! For bulk orders above 50kg, please contact us for special pricing. WhatsApp: +91 7373755589'
     }
   },
   
@@ -310,20 +310,20 @@ const translations = {
   hi: {
     greeting: "नमस्ते! 👋 GUDY में आपका स्वागत है! मैं यहाँ आपकी प्रीमियम गुड़ उत्पादों में सहायता के लिए हूँ। मैं आपकी कैसे मदद कर सकता हूँ?",
     contact: {
-      phone: '+91 9876543210',
-      email: 'support@gudy.com',
-      whatsapp: '+91 9876543210',
+      phone: '+91 7373755589',
+      email: 'office.gudy@gmail.com',
+      whatsapp: '+91 7373755589',
       hours: 'सोमवार से शनिवार, सुबह 9 बजे - शाम 6 बजे'
     },
     faqs: {
-      shipping: '₹299 से अधिक के सभी ऑर्डर पर मुफ्त शिपिंग। ₹299 से कम के ऑर्डर पर ₹40 शिपिंग शुल्क लागू होता है।',
+      shipping: 'सभी ऑर्डर पर ₹40 शिपिंग शुल्क लागू होता है।',
       delivery: 'डिलीवरी में आमतौर पर आपके स्थान के आधार पर 3-7 व्यावसायिक दिन लगते हैं। मेट्रो शहरों में 3-4 दिनों में ऑर्डर मिलता है।',
       cod: 'हां! हम सभी ऑर्डर के लिए कैश ऑन डिलीवरी (COD) स्वीकार करते हैं। आप UPI, कार्ड या नेट बैंकिंग का उपयोग करके ऑनलाइन भी भुगतान कर सकते हैं।',
       returns: 'हमारे पास 7 दिन की रिटर्न पॉलिसी है। यदि आपको क्षतिग्रस्त या दोषपूर्ण उत्पाद मिलता है, तो प्रतिस्थापन या रिफंड के लिए 7 दिनों के भीतर हमसे संपर्क करें।',
       storage: 'एयरटाइट कंटेनर में ठंडी, सूखी जगह पर स्टोर करें। सख्त होने से रोकने के लिए नमी से दूर रखें।',
       expiry: 'हमारे गुड़ उत्पादों की शेल्फ लाइफ निर्माण की तारीख से 12 महीने है जब उचित रूप से संग्रहीत किया जाता है।',
       organic: 'हां, हमारा गुड़ 100% जैविक गन्ने से बनाया जाता है जो बिना कीटनाशकों या रसायनों के उगाया जाता है।',
-      bulk: 'हां! 50 किलो से अधिक के थोक ऑर्डर के लिए, विशेष मूल्य निर्धारण के लिए कृपया हमसे संपर्क करें। WhatsApp: +91 9876543210'
+      bulk: 'हां! 50 किलो से अधिक के थोक ऑर्डर के लिए, विशेष मूल्य निर्धारण के लिए कृपया हमसे संपर्क करें। WhatsApp: +91 7373755589'
     }
   },
   
@@ -331,20 +331,20 @@ const translations = {
   ta: {
     greeting: "வணக்கம்! 👋 GUDY-க்கு வரவேற்கிறோம்! எங்கள் பிரீமியம் வெல்லம் பொருட்களில் உங்களுக்கு உதவ நான் இங்கே இருக்கிறேன். நான் எப்படி உதவ முடியும்?",
     contact: {
-      phone: '+91 9876543210',
-      email: 'support@gudy.com',
-      whatsapp: '+91 9876543210',
+      phone: '+91 7373755589',
+      email: 'office.gudy@gmail.com',
+      whatsapp: '+91 7373755589',
       hours: 'திங்கள் முதல் சனி, காலை 9 மணி - மாலை 6 மணி'
     },
     faqs: {
-      shipping: '₹299 க்கு மேல் அனைத்து ஆர்டர்களுக்கும் இலவச ஷிப்பிங். ₹299 க்கு குறைவான ஆர்டர்களுக்கு ₹40 ஷிப்பிங் கட்டணம் பொருந்தும்.',
+      shipping: 'அனைத்து ஆர்டர்களுக்கும் ₹40 ஷிப்பிங் கட்டணம் பொருந்தும்.',
       delivery: 'உங்கள் இடத்தைப் பொறுத்து பொதுவாக டெலிவரிக்கு 3-7 வணிக நாட்கள் ஆகும். மெட்ரோ நகரங்கள் 3-4 நாட்களில் ஆர்டர்களைப் பெறுகின்றன.',
       cod: 'ஆம்! அனைத்து ஆர்டர்களுக்கும் கேஷ் ஆன் டெலிவரி (COD) ஏற்றுக்கொள்கிறோம். UPI, கார்டுகள் அல்லது நெட் பேங்கிங் பயன்படுத்தி ஆன்லைனில் பணம் செலுத்தலாம்.',
       returns: 'எங்களிடம் 7 நாள் திரும்பப் பெறும் கொள்கை உள்ளது. சேதமடைந்த அல்லது குறைபாடுள்ள தயாரிப்பு கிடைத்தால், மாற்று அல்லது பணத்திருப்பிக்கு 7 நாட்களுக்குள் எங்களைத் தொடர்பு கொள்ளவும்.',
       storage: 'காற்று புகாத கொள்கலனில் குளிர்ந்த, வறண்ட இடத்தில் சேமிக்கவும். கடினமாவதைத் தடுக்க ஈரப்பதத்திலிருந்து விலகி வைக்கவும்.',
       expiry: 'எங்கள் வெல்லம் பொருட்கள் சரியாக சேமித்தால் உற்பத்தி தேதியிலிருந்து 12 மாதங்கள் ஆயுட்காலம் உள்ளன.',
       organic: 'ஆம், எங்கள் வெல்லம் 100% இயற்கை கரும்பில் இருந்து தயாரிக்கப்படுகிறது, இது பூச்சிக்கொல்லிகள் அல்லது இரசாயனங்கள் இல்லாமல் வளர்க்கப்படுகிறது.',
-      bulk: 'ஆம்! 50 கிலோவுக்கு மேல் மொத்த ஆர்டர்களுக்கு, சிறப்பு விலைக்கு எங்களை தொடர்பு கொள்ளவும். WhatsApp: +91 9876543210'
+      bulk: 'ஆம்! 50 கிலோவுக்கு மேல் மொத்த ஆர்டர்களுக்கு, சிறப்பு விலைக்கு எங்களை தொடர்பு கொள்ளவும். WhatsApp: +91 7373755589'
     }
   },
   
@@ -352,20 +352,20 @@ const translations = {
   te: {
     greeting: "నమస్కారం! 👋 GUDY కు స్వాగతం! మా ప్రీమియం బెల్లం ఉత్పత్తులలో మీకు సహాయం చేయడానికి నేను ఇక్కడ ఉన్నాను. నేను ఎలా సహాయం చేయగలను?",
     contact: {
-      phone: '+91 9876543210',
-      email: 'support@gudy.com',
-      whatsapp: '+91 9876543210',
+      phone: '+91 7373755589',
+      email: 'office.gudy@gmail.com',
+      whatsapp: '+91 7373755589',
       hours: 'సోమవారం నుండి శనివారం, ఉదయం 9 గంటలు - సాయంత్రం 6 గంటలు'
     },
     faqs: {
-      shipping: '₹299 కంటే ఎక్కువ అన్ని ఆర్డర్లకు ఉచిత షిప్పింగ్. ₹299 కంటే తక్కువ ఆర్డర్లకు ₹40 షిప్పింగ్ ఛార్జీలు వర్తిస్తాయి.',
+      shipping: 'అన్ని ఆర్డర్లకు ₹40 షిప్పింగ్ ఛార్జీలు వర్తిస్తాయి.',
       delivery: 'మీ స్థానాన్ని బట్టి డెలివరీకి సాధారణంగా 3-7 వ్యాపార దినాలు పడుతుంది. మెట్రో నగరాలు 3-4 రోజుల్లో ఆర్డర్లను అందుకుంటాయి.',
       cod: 'అవును! అన్ని ఆర్డర్లకు క్యాష్ ఆన్ డెలివరీ (COD) అంగీకరిస్తాము. UPI, కార్డులు లేదా నెట్ బ్యాంకింగ్ ఉపయోగించి ఆన్లైన్లో కూడా చెల్లించవచ్చు.',
       returns: 'మాకు 7 రోజుల రిటర్న్ పాలసీ ఉంది. మీకు దెబ్బతిన్న లేదా లోపభూయిష్ట ఉత్పత్తి లభించినట్లయితే, రీప్లేస్మెంట్ లేదా రీఫండ్ కోసం 7 రోజుల్లో మమ్మల్ని సంప్రదించండి.',
       storage: 'గాలి చొరబడని కంటైనర్లో చల్లని, పొడి ప్రదేశంలో నిల్వ చేయండి. గట్టిపడకుండా తేమ నుండి దూరంగా ఉంచండి.',
       expiry: 'మా బెల్లం ఉత్పత్తులు సరిగ్గా నిల్వ చేసినప్పుడు తయారీ తేదీ నుండి 12 నెలల షెల్ఫ్ జీవితం కలిగి ఉంటాయి.',
       organic: 'అవును, మా బెల్లం 100% సేంద్రీయ చెరుకు నుండి తయారు చేయబడింది, ఇది పురుగుమందులు లేదా రసాయనాలు లేకుండా పెంచబడుతుంది.',
-      bulk: 'అవును! 50 కిలోల కంటే ఎక్కువ బల్క్ ఆర్డర్ల కోసం, ప్రత్యేక ధర కోసం దయచేసి మమ్మల్ని సంప్రదించండి. WhatsApp: +91 9876543210'
+      bulk: 'అవును! 50 కిలోల కంటే ఎక్కువ బల్క్ ఆర్డర్ల కోసం, ప్రత్యేక ధర కోసం దయచేసి మమ్మల్ని సంప్రదించండి. WhatsApp: +91 7373755589'
     }
   },
   
@@ -373,20 +373,20 @@ const translations = {
   kn: {
     greeting: "ನಮಸ್ಕಾರ! 👋 GUDY ಗೆ ಸ್ವಾಗತ! ನಮ್ಮ ಪ್ರೀಮಿಯಂ ಬೆಲ್ಲದ ಉತ್ಪನ್ನಗಳಲ್ಲಿ ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನಾನು ಇಲ್ಲಿದ್ದೇನೆ. ನಾನು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
     contact: {
-      phone: '+91 9876543210',
-      email: 'support@gudy.com',
-      whatsapp: '+91 9876543210',
+      phone: '+91 7373755589',
+      email: 'office.gudy@gmail.com',
+      whatsapp: '+91 7373755589',
       hours: 'ಸೋಮವಾರದಿಂದ ಶನಿವಾರದವರೆಗೆ, ಬೆಳಿಗ್ಗೆ 9 ರಿಂದ ಸಂಜೆ 6 ರವರೆಗೆ'
     },
     faqs: {
-      shipping: '₹299 ಕ್ಕಿಂತ ಹೆಚ್ಚಿನ ಎಲ್ಲಾ ಆರ್ಡರ್‌ಗಳಲ್ಲಿ ಉಚಿತ ಶಿಪ್ಪಿಂಗ್. ₹299 ಕ್ಕಿಂತ ಕಡಿಮೆ ಆರ್ಡರ್‌ಗಳಿಗೆ ₹40 ಶಿಪ್ಪಿಂಗ್ ಶುಲ್ಕ ಅನ್ವಯವಾಗುತ್ತದೆ.',
+      shipping: 'ಎಲ್ಲಾ ಆರ್ಡರ್‌ಗಳಿಗೆ ₹40 ಶಿಪ್ಪಿಂಗ್ ಶುಲ್ಕ ಅನ್ವಯವಾಗುತ್ತದೆ.',
       delivery: 'ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಅವಲಂಬಿಸಿ ವಿತರಣೆಗೆ ಸಾಮಾನ್ಯವಾಗಿ 3-7 ವ್ಯಾಪಾರ ದಿನಗಳು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ. ಮೆಟ್ರೋ ನಗರಗಳಿಗೆ 3-4 ದಿನಗಳಲ್ಲಿ ಆರ್ಡರ್‌ಗಳು ಸಿಗುತ್ತವೆ.',
       cod: 'ಹೌದು! ನಾವು ಎಲ್ಲಾ ಆರ್ಡರ್‌ಗಳಿಗೆ ಕ್ಯಾಶ್ ಆನ್ ಡೆಲಿವರಿ (COD) ಅನ್ನು ಸ್ವೀಕರಿಸುತ್ತೇವೆ. UPI, ಕಾರ್ಡ್‌ಗಳು ಅಥವಾ ನೆಟ್ ಬ್ಯಾಂಕಿಂಗ್ ಬಳಸಿಕೊಂಡು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಪಾವತಿಸಬಹುದು.',
       returns: 'ನಮಗೆ 7-ದಿನದ ರಿಟರ್ನ್ ನೀತಿ ಇದೆ. ನಿಮಗೆ ಹಾನಿಗೊಳಗಾದ ಅಥವಾ ದೋಷಪೂರಿತ ಉತ್ಪನ್ನ ಸಿಕ್ಕರೆ, ಬದಲಿ ಅಥವಾ ಮರುಪಾವತಿಗಾಗಿ 7 ದಿನಗಳಲ್ಲಿ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ.',
       storage: 'ಗಾಳಿಯಾಡದ ಪಾತ್ರೆಯಲ್ಲಿ ತಂಪಾದ, ಒಣ ಸ್ಥಳದಲ್ಲಿ ಸಂಗ್ರಹಿಸಿ. ಗಟ್ಟಿಯಾಗುವುದನ್ನು ತಡೆಯಲು ತೇವಾಂಶದಿಂದ ದೂರವಿರಿಸಿ.',
       expiry: 'ನಮ್ಮ ಬೆಲ್ಲದ ಉತ್ಪನ್ನಗಳು ಸರಿಯಾಗಿ ಸಂಗ್ರಹಿಸಿದಾಗ ತಯಾರಿಕೆಯ ದಿನಾಂಕದಿಂದ 12 ತಿಂಗಳ ಶೆಲ್ಫ್ ಲೈಫ್ ಅನ್ನು ಹೊಂದಿವೆ.',
       organic: 'ಹೌದು, ನಮ್ಮ ಬೆಲ್ಲವನ್ನು 100% ಸಾವಯವ ಕಬ್ಬಿನಿಂದ ತಯಾರಿಸಲಾಗುತ್ತದೆ, ಅದನ್ನು ಕೀಟನಾಶಕಗಳು ಅಥವಾ ರಾಸಾಯನಿಕಗಳಿಲ್ಲದೆ ಬೆಳೆಸಲಾಗುತ್ತದೆ.',
-      bulk: 'ಹೌದು! 50 ಕೆಜಿಗಿಂತ ಹೆಚ್ಚಿನ ಬಲ್ಕ್ ಆರ್ಡರ್‌ಗಳಿಗೆ, ವಿಶೇಷ ಬೆಲೆಗಾಗಿ ದಯವಿಟ್ಟು ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ. WhatsApp: +91 9876543210'
+      bulk: 'ಹೌದು! 50 ಕೆಜಿಗಿಂತ ಹೆಚ್ಚಿನ ಬಲ್ಕ್ ಆರ್ಡರ್‌ಗಳಿಗೆ, ವಿಶೇಷ ಬೆಲೆಗಾಗಿ ದಯವಿಟ್ಟು ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ. WhatsApp: +91 7373755589'
     }
   },
   
@@ -394,142 +394,142 @@ const translations = {
   ml: {
     greeting: "നമസ്കാരം! 👋 GUDY-യിലേക്ക് സ്വാഗതം! ഞങ്ങളുടെ പ്രീമിയം ശർക്കര ഉൽപ്പന്നങ്ങളിൽ നിങ്ങളെ സഹായിക്കാൻ ഞാൻ ഇവിടെയുണ്ട്. എനിക്ക് എങ്ങനെ സഹായിക്കാം?",
     contact: {
-      phone: '+91 9876543210',
-      email: 'support@gudy.com',
-      whatsapp: '+91 9876543210',
+      phone: '+91 7373755589',
+      email: 'office.gudy@gmail.com',
+      whatsapp: '+91 7373755589',
       hours: 'തിങ്കൾ മുതൽ ശനി വരെ, രാവിലെ 9 മണി മുതൽ വൈകുന്നേരം 6 മണി വരെ'
     },
     faqs: {
-      shipping: '₹299-ന് മുകളിലുള്ള എല്ലാ ഓർഡറുകൾക്കും സൗജന്യ ഷിപ്പിംഗ്. ₹299-ൽ താഴെയുള്ള ഓർഡറുകൾക്ക് ₹40 ഷിപ്പിംഗ് ചാർജ് ബാധകമാണ്.',
+      shipping: 'എല്ലാ ഓർഡറുകൾക്കും ₹40 ഷിപ്പിംഗ് ചാർജ് ബാധകമാണ്.',
       delivery: 'നിങ്ങളുടെ സ്ഥലത്തെ ആശ്രയിച്ച് ഡെലിവറിയിൽ സാധാരണയായി 3-7 പ്രവൃത്തി ദിവസങ്ങൾ എടുക്കും. മെട്രോ നഗരങ്ങളിൽ 3-4 ദിവസങ്ങൾക്കുള്ളിൽ ഓർഡറുകൾ ലഭിക്കും.',
       cod: 'അതെ! എല്ലാ ഓർഡറുകൾക്കും ഞങ്ങൾ ക്യാഷ് ഓൺ ഡെലിവറി (COD) സ്വീകരിക്കുന്നു. UPI, കാർഡുകൾ, അല്ലെങ്കിൽ നെറ്റ് ബാങ്കിംഗ് ഉപയോഗിച്ച് ഓൺലൈനായി പണമടയ്ക്കാം.',
       returns: 'ഞങ്ങൾക്ക് 7 ദിവസത്തെ റിട്ടേൺ പോളിസി ഉണ്ട്. കേടായതോ വികലമായതോ ആയ ഉൽപ്പന്നം ലഭിച്ചാൽ, മാറ്റിസ്ഥാപനത്തിനോ റീഫണ്ടിനോ 7 ദിവസത്തിനുള്ളിൽ ഞങ്ങളെ ബന്ധപ്പെടുക.',
       storage: 'വായുകടക്കാത്ത പാത്രത്തിൽ തണുത്തതും വരണ്ടതുമായ സ്ഥലത്ത് സൂക്ഷിക്കുക. കഠിനമാകുന്നത് തടയാൻ ഈർപ്പത്തിൽ നിന്ന് അകറ്റി നിർത്തുക.',
       expiry: 'ശരിയായി സൂക്ഷിച്ചാൽ നിർമ്മാണ തീയതി മുതൽ ഞങ്ങളുടെ ശർക്കര ഉൽപ്പന്നങ്ങൾക്ക് 12 മാസത്തെ ഷെൽഫ് ലൈഫ് ഉണ്ട്.',
       organic: 'അതെ, ഞങ്ങളുടെ ശർക്കര 100% ജൈവ കരിമ്പിൽ നിന്ന് നിർമ്മിച്ചതാണ്, ഇത് കീടനാശിനികളോ രാസവസ്തുക്കളോ ഇല്ലാതെ വളർത്തുന്നു.',
-      bulk: 'അതെ! 50 കിലോയിൽ കൂടുതലുള്ള ബൾക്ക് ഓർഡറുകൾക്ക്, പ്രത്യേക വിലനിർണ്ണയത്തിനായി ഞങ്ങളെ ബന്ധപ്പെടുക. WhatsApp: +91 9876543210'
+      bulk: 'അതെ! 50 കിലോയിൽ കൂടുതലുള്ള ബൾക്ക് ഓർഡറുകൾക്ക്, പ്രത്യേക വിലനിർണ്ണയത്തിനായി ഞങ്ങളെ ബന്ധപ്പെടുക. WhatsApp: +91 7373755589'
     }
   },
   
   // Add other languages...
   mr: {
     greeting: "नमस्कार! 👋 GUDY मध्ये आपले स्वागत आहे! आमच्या प्रीमियम गूळ उत्पादनांमध्ये तुम्हाला मदत करण्यासाठी मी येथे आहे. मी कशी मदत करू शकतो?",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'सोमवार ते शनिवार, सकाळी 9 ते संध्याकाळी 6' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'सोमवार ते शनिवार, सकाळी 9 ते संध्याकाळी 6' },
     faqs: {
-      shipping: '₹299 पेक्षा जास्त ऑर्डरवर मोफत शिपिंग. ₹299 पेक्षा कमी ऑर्डरसाठी ₹40 शिपिंग शुल्क लागू.',
+      shipping: 'सर्व ऑर्डरसाठी ₹40 शिपिंग शुल्क लागू.',
       delivery: 'तुमच्या स्थानानुसार डिलिव्हरीला साधारणपणे 3-7 व्यावसायिक दिवस लागतात.',
       cod: 'होय! आम्ही सर्व ऑर्डरसाठी कॅश ऑन डिलिव्हरी (COD) स्वीकारतो.',
       returns: '7-दिवसांची परतावा धोरण आहे.',
       storage: 'थंड, कोरड्या ठिकाणी एअरटाइट कंटेनरमध्ये साठवा.',
       expiry: 'योग्यरित्या साठवल्यास निर्मितीच्या तारखेपासून 12 महिने शेल्फ लाइफ.',
       organic: 'होय, आमचे गूळ 100% सेंद्रिय ऊसापासून बनवले जाते.',
-      bulk: 'होय! 50 किलो पेक्षा जास्त ऑर्डरसाठी आमच्याशी संपर्क साधा. WhatsApp: +91 9876543210'
+      bulk: 'होय! 50 किलो पेक्षा जास्त ऑर्डरसाठी आमच्याशी संपर्क साधा. WhatsApp: +91 7373755589'
     }
   },
   
   bn: {
     greeting: "নমস্কার! 👋 GUDY-তে স্বাগতম! আমাদের প্রিমিয়াম গুড় পণ্যগুলিতে আপনাকে সাহায্য করতে আমি এখানে আছি। আমি কীভাবে সহায়তা করতে পারি?",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'সোমবার থেকে শনিবার, সকাল 9টা থেকে সন্ধ্যা 6টা' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'সোমবার থেকে শনিবার, সকাল 9টা থেকে সন্ধ্যা 6টা' },
     faqs: {
-      shipping: '₹299-এর উপরে সমস্ত অর্ডারে বিনামূল্যে শিপিং। ₹299-এর নীচে অর্ডারের জন্য ₹40 শিপিং চার্জ প্রযোজ্য।',
+      shipping: 'সমস্ত অর্ডারের জন্য ₹40 শিপিং চার্জ প্রযোজ্য।',
       delivery: 'আপনার অবস্থানের উপর নির্ভর করে ডেলিভারিতে সাধারণত 3-7 কার্যদিবস সময় লাগে।',
       cod: 'হ্যাঁ! আমরা সমস্ত অর্ডারের জন্য ক্যাশ অন ডেলিভারি (COD) গ্রহণ করি।',
       returns: 'আমাদের 7-দিনের রিটার্ন নীতি আছে।',
       storage: 'একটি বায়ুরোধী পাত্রে শীতল, শুষ্ক জায়গায় সংরক্ষণ করুন।',
       expiry: 'যথাযথভাবে সংরক্ষণ করলে উৎপাদনের তারিখ থেকে 12 মাসের শেলফ লাইফ।',
       organic: 'হ্যাঁ, আমাদের গুড় 100% জৈব আখ থেকে তৈরি।',
-      bulk: 'হ্যাঁ! 50 কেজির বেশি বাল্ক অর্ডারের জন্য আমাদের সাথে যোগাযোগ করুন। WhatsApp: +91 9876543210'
+      bulk: 'হ্যাঁ! 50 কেজির বেশি বাল্ক অর্ডারের জন্য আমাদের সাথে যোগাযোগ করুন। WhatsApp: +91 7373755589'
     }
   },
   
   gu: {
     greeting: "નમસ્તે! 👋 GUDY માં આપનું સ્વાગત છે! અમારા પ્રીમિયમ ગોળ ઉત્પાદનોમાં તમને મદદ કરવા હું અહીં છું. હું કેવી રીતે મદદ કરી શકું?",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'સોમવારથી શનિવાર, સવારે 9 થી સાંજે 6' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'સોમવારથી શનિવાર, સવારે 9 થી સાંજે 6' },
     faqs: {
-      shipping: '₹299 થી વધુના તમામ ઓર્ડર પર મફત શિપિંગ। ₹299 થી ઓછા ઓર્ડર માટે ₹40 શિપિંગ ચાર્જ લાગુ પડે છે।',
+      shipping: 'તમામ ઓર્ડર માટે ₹40 શિપિંગ ચાર્જ લાગુ પડે છે।',
       delivery: 'તમારા સ્થાન પર આધાર રાખીને ડિલિવરીમાં સામાન્ય રીતે 3-7 વ્યાવસાયિક દિવસ લાગે છે।',
       cod: 'હા! અમે તમામ ઓર્ડર માટે કેશ ઓન ડિલિવરી (COD) સ્વીકારીએ છીએ।',
       returns: 'અમારી પાસે 7-દિવસની રિટર્ન પોલિસી છે।',
       storage: 'એરટાઇટ કન્ટેનરમાં ઠંડી, સૂકી જગ્યાએ સંગ્રહિત કરો।',
       expiry: 'યોગ્ય રીતે સંગ્રહિત કરવામાં આવે તો ઉત્પાદનની તારીખથી 12 મહિનાની શેલ્ફ લાઇફ।',
       organic: 'હા, અમારો ગોળ 100% ઓર્ગેનિક શેરડીમાંથી બનાવવામાં આવે છે।',
-      bulk: 'હા! 50 કિલોથી વધુ બલ્ક ઓર્ડર માટે કૃપા કરીને અમારો સંપર્ક કરો। WhatsApp: +91 9876543210'
+      bulk: 'હા! 50 કિલોથી વધુ બલ્ક ઓર્ડર માટે કૃપા કરીને અમારો સંપર્ક કરો। WhatsApp: +91 7373755589'
     }
   },
   
   pa: {
     greeting: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! 👋 GUDY ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ! ਸਾਡੇ ਪ੍ਰੀਮੀਅਮ ਗੁੜ ਉਤਪਾਦਾਂ ਵਿੱਚ ਤੁਹਾਡੀ ਮਦਦ ਕਰਨ ਲਈ ਮੈਂ ਇੱਥੇ ਹਾਂ। ਮੈਂ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'ਸੋਮਵਾਰ ਤੋਂ ਸ਼ਨੀਵਾਰ, ਸਵੇਰੇ 9 ਤੋਂ ਸ਼ਾਮ 6' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'ਸੋਮਵਾਰ ਤੋਂ ਸ਼ਨੀਵਾਰ, ਸਵੇਰੇ 9 ਤੋਂ ਸ਼ਾਮ 6' },
     faqs: {
-      shipping: '₹299 ਤੋਂ ਵੱਧ ਦੇ ਸਾਰੇ ਆਰਡਰਾਂ ਤੇ ਮੁਫ਼ਤ ਸ਼ਿਪਿੰਗ। ₹299 ਤੋਂ ਘੱਟ ਆਰਡਰਾਂ ਲਈ ₹40 ਸ਼ਿਪਿੰਗ ਖਰਚੇ ਲਾਗੂ ਹੁੰਦੇ ਹਨ।',
+      shipping: 'ਸਾਰੇ ਆਰਡਰਾਂ ਲਈ ₹40 ਸ਼ਿਪਿੰਗ ਖਰਚੇ ਲਾਗੂ ਹੁੰਦੇ ਹਨ।',
       delivery: 'ਤੁਹਾਡੀ ਸਥਿਤੀ ਦੇ ਆਧਾਰ ਤੇ ਡਿਲੀਵਰੀ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ 3-7 ਕਾਰੋਬਾਰੀ ਦਿਨ ਲੱਗਦੇ ਹਨ।',
       cod: 'ਹਾਂ! ਅਸੀਂ ਸਾਰੇ ਆਰਡਰਾਂ ਲਈ ਕੈਸ਼ ਆਨ ਡਿਲੀਵਰੀ (COD) ਸਵੀਕਾਰ ਕਰਦੇ ਹਾਂ।',
       returns: 'ਸਾਡੀ 7-ਦਿਨ ਦੀ ਵਾਪਸੀ ਨੀਤੀ ਹੈ।',
       storage: 'ਏਅਰਟਾਈਟ ਕੰਟੇਨਰ ਵਿੱਚ ਠੰਡੀ, ਸੁੱਕੀ ਥਾਂ ਤੇ ਸਟੋਰ ਕਰੋ।',
       expiry: 'ਸਹੀ ਢੰਗ ਨਾਲ ਸਟੋਰ ਕੀਤੇ ਜਾਣ ਤੇ ਨਿਰਮਾਣ ਮਿਤੀ ਤੋਂ 12 ਮਹੀਨਿਆਂ ਦੀ ਸ਼ੈਲਫ ਲਾਈਫ।',
       organic: 'ਹਾਂ, ਸਾਡਾ ਗੁੜ 100% ਜੈਵਿਕ ਗੰਨੇ ਤੋਂ ਬਣਾਇਆ ਗਿਆ ਹੈ।',
-      bulk: 'ਹਾਂ! 50 ਕਿਲੋ ਤੋਂ ਵੱਧ ਦੇ ਬਲਕ ਆਰਡਰਾਂ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ। WhatsApp: +91 9876543210'
+      bulk: 'ਹਾਂ! 50 ਕਿਲੋ ਤੋਂ ਵੱਧ ਦੇ ਬਲਕ ਆਰਡਰਾਂ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ। WhatsApp: +91 7373755589'
     }
   },
   
   // International languages
   es: {
     greeting: "¡Hola! 👋 ¡Bienvenido a GUDY! Estoy aquí para ayudarte con nuestros productos premium de jaggery. ¿Cómo puedo asistirte hoy?",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'Lunes a Sábado, 9 AM - 6 PM' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'Lunes a Sábado, 9 AM - 6 PM' },
     faqs: {
-      shipping: 'Ofrecemos envío GRATIS en todos los pedidos superiores a ₹299. Para pedidos inferiores a ₹299, se aplican cargos de envío estándar de ₹40.',
+      shipping: 'Se aplican cargos de envío estándar de ₹40 en todos los pedidos.',
       delivery: 'La entrega generalmente toma de 3 a 7 días hábiles dependiendo de tu ubicación.',
       cod: '¡Sí! Aceptamos Pago Contra Entrega (COD) para todos los pedidos.',
       returns: 'Tenemos una política de devolución de 7 días.',
       storage: 'Almacenar en un lugar fresco y seco en un recipiente hermético.',
       expiry: 'Nuestros productos tienen una vida útil de 12 meses desde la fecha de fabricación cuando se almacenan correctamente.',
       organic: 'Sí, nuestro jaggery está hecho de caña de azúcar 100% orgánica.',
-      bulk: '¡Sí! Para pedidos al por mayor de más de 50 kg, contáctanos. WhatsApp: +91 9876543210'
+      bulk: '¡Sí! Para pedidos al por mayor de más de 50 kg, contáctanos. WhatsApp: +91 7373755589'
     }
   },
   
   fr: {
     greeting: "Bonjour! 👋 Bienvenue chez GUDY! Je suis là pour vous aider avec nos produits premium de jaggery. Comment puis-je vous aider aujourd'hui?",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'Lundi au Samedi, 9h - 18h' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'Lundi au Samedi, 9h - 18h' },
     faqs: {
-      shipping: 'Nous offrons la livraison GRATUITE sur toutes les commandes supérieures à ₹299. Pour les commandes inférieures à ₹299, des frais de livraison standard de ₹40 s\'appliquent.',
+      shipping: 'Des frais de livraison standard de ₹40 s\'appliquent sur toutes les commandes.',
       delivery: 'La livraison prend généralement 3 à 7 jours ouvrables selon votre emplacement.',
       cod: 'Oui! Nous acceptons le paiement à la livraison (COD) pour toutes les commandes.',
       returns: 'Nous avons une politique de retour de 7 jours.',
       storage: 'Conserver dans un endroit frais et sec dans un récipient hermétique.',
       expiry: 'Nos produits ont une durée de conservation de 12 mois à partir de la date de fabrication lorsqu\'ils sont stockés correctement.',
       organic: 'Oui, notre jaggery est fabriqué à partir de canne à sucre 100% biologique.',
-      bulk: 'Oui! Pour les commandes en gros de plus de 50 kg, veuillez nous contacter. WhatsApp: +91 9876543210'
+      bulk: 'Oui! Pour les commandes en gros de plus de 50 kg, veuillez nous contacter. WhatsApp: +91 7373755589'
     }
   },
   
   de: {
     greeting: "Hallo! 👋 Willkommen bei GUDY! Ich bin hier, um Ihnen bei unseren Premium-Jaggery-Produkten zu helfen. Wie kann ich Ihnen heute helfen?",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'Montag bis Samstag, 9 - 18 Uhr' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'Montag bis Samstag, 9 - 18 Uhr' },
     faqs: {
-      shipping: 'Wir bieten KOSTENLOSEN Versand für alle Bestellungen über ₹299. Für Bestellungen unter ₹299 fallen Standardversandkosten von ₹40 an.',
+      shipping: 'Für alle Bestellungen fallen Standardversandkosten von ₹40 an.',
       delivery: 'Die Lieferung dauert in der Regel 3-7 Werktage, abhängig von Ihrem Standort.',
       cod: 'Ja! Wir akzeptieren Nachnahme (COD) für alle Bestellungen.',
       returns: 'Wir haben eine 7-tägige Rückgaberichtlinie.',
       storage: 'An einem kühlen, trockenen Ort in einem luftdichten Behälter aufbewahren.',
       expiry: 'Unsere Produkte haben eine Haltbarkeit von 12 Monaten ab Herstellungsdatum bei ordnungsgemäßer Lagerung.',
       organic: 'Ja, unser Jaggery wird aus 100% biologischem Zuckerrohr hergestellt.',
-      bulk: 'Ja! Für Großbestellungen über 50 kg kontaktieren Sie uns bitte. WhatsApp: +91 9876543210'
+      bulk: 'Ja! Für Großbestellungen über 50 kg kontaktieren Sie uns bitte. WhatsApp: +91 7373755589'
     }
   },
   
   ar: {
     greeting: "مرحباً! 👋 مرحباً بك في GUDY! أنا هنا لمساعدتك في منتجاتنا المتميزة من الجاغري. كيف يمكنني مساعدتك اليوم؟",
-    contact: { phone: '+91 9876543210', email: 'support@gudy.com', whatsapp: '+91 9876543210', hours: 'الإثنين إلى السبت، 9 صباحاً - 6 مساءً' },
+    contact: { phone: '+91 7373755589', email: 'office.gudy@gmail.com', whatsapp: '+91 7373755589', hours: 'الإثنين إلى السبت، 9 صباحاً - 6 مساءً' },
     faqs: {
-      shipping: 'نقدم شحن مجاني على جميع الطلبات التي تزيد عن ₹299. للطلبات التي تقل عن ₹299، تطبق رسوم شحن قياسية قدرها ₹40.',
+      shipping: 'تطبق رسوم شحن قياسية قدرها ₹40 على جميع الطلبات.',
       delivery: 'عادة ما يستغرق التسليم من 3 إلى 7 أيام عمل حسب موقعك.',
       cod: 'نعم! نقبل الدفع عند الاستلام (COD) لجميع الطلبات.',
       returns: 'لدينا سياسة إرجاع لمدة 7 أيام.',
       storage: 'التخزين في مكان بارد وجاف في حاوية محكمة الإغلاق.',
       expiry: 'منتجاتنا لها عمر تخزين مدته 12 شهراً من تاريخ التصنيع عند التخزين بشكل صحيح.',
       organic: 'نعم، يُصنع الجاغري لدينا من قصب السكر العضوي 100%.',
-      bulk: 'نعم! للطلبات بالجملة التي تزيد عن 50 كجم، يرجى الاتصال بنا. WhatsApp: +91 9876543210'
+      bulk: 'نعم! للطلبات بالجملة التي تزيد عن 50 كجم، يرجى الاتصال بنا. WhatsApp: +91 7373755589'
     }
   }
 };
@@ -910,12 +910,12 @@ function generateFallbackResponse(message, language = 'en') {
       msgLower.includes('கண்காணி') || msgLower.includes('ஆர்டர்') || msgLower.includes('ट्रैक') || 
       msgLower.includes('ऑर्डर') || msgLower.includes('ట్రాక్')) {
     const trackMessages = {
-      en: "To track your order:\n\n1. Log in to your account\n2. Go to 'My Orders' section\n3. Click on the order you want to track\n\nYou can also contact our support team:\n📞 Phone: +91 9876543210\n💬 WhatsApp: +91 9876543210",
-      hi: "अपने ऑर्डर को ट्रैक करने के लिए:\n\n1. अपने खाते में लॉग इन करें\n2. 'मेरे ऑर्डर' अनुभाग पर जाएं\n3. उस ऑर्डर पर क्लिक करें जिसे आप ट्रैक करना चाहते हैं\n\nआप हमारी सहायता टीम से भी संपर्क कर सकते हैं:\n📞 फोन: +91 9876543210\n💬 WhatsApp: +91 9876543210",
-      ta: "உங்கள் ஆர்டரை கண்காணிக்க:\n\n1. உங்கள் கணக்கில் உள்நுழையவும்\n2. 'எனது ஆர்டர்கள்' பிரிவுக்குச் செல்லவும்\n3. நீங்கள் கண்காணிக்க விரும்பும் ஆர்டரில் கிளிக் செய்யவும்\n\nநீங்கள் எங்கள் ஆதரவு குழுவையும் தொடர்பு கொள்ளலாம்:\n📞 தொலைபேசி: +91 9876543210\n💬 WhatsApp: +91 9876543210",
-      te: "మీ ఆర్డర్‌ను ట్రాక్ చేయడానికి:\n\n1. మీ ఖాతాలోకి లాగిన్ అవ్వండి\n2. 'నా ఆర్డర్లు' విభాగానికి వెళ్లండి\n3. మీరు ట్రాక్ చేయాలనుకుంటున్న ఆర్డర్‌పై క్లిక్ చేయండి\n\nమీరు మా మద్దతు బృందాన్ని కూడా సంప్రదించవచ్చు:\n📞 ఫోన్: +91 9876543210\n💬 WhatsApp: +91 9876543210",
-      kn: "ನಿಮ್ಮ ಆರ್ಡರ್ ಅನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು:\n\n1. ನಿಮ್ಮ ಖಾತೆಗೆ ಲಾಗ್ ಇನ್ ಮಾಡಿ\n2. 'ನನ್ನ ಆರ್ಡರ್‌ಗಳು' ವಿಭಾಗಕ್ಕೆ ಹೋಗಿ\n3. ನೀವು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ಬಯಸುವ ಆರ್ಡರ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ\n\nನೀವು ನಮ್ಮ ಬೆಂಬಲ ತಂಡವನ್ನು ಸಹ ಸಂಪರ್ಕಿಸಬಹುದು:\n📞 ಫೋನ್: +91 9876543210\n💬 WhatsApp: +91 9876543210",
-      ml: "നിങ്ങളുടെ ഓർഡർ ട്രാക്ക് ചെയ്യാൻ:\n\n1. നിങ്ങളുടെ അക്കൗണ്ടിലേക്ക് ലോഗിൻ ചെയ്യുക\n2. 'എന്റെ ഓർഡറുകൾ' വിഭാഗത്തിലേക്ക് പോകുക\n3. നിങ്ങൾ ട്രാക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഓർഡറിൽ ക്ലിക്ക് ചെയ്യുക\n\nനിങ്ങൾക്ക് ഞങ്ങളുടെ പിന്തുണാ ടീമിനെയും ബന്ധപ്പെടാം:\n📞 ഫോൺ: +91 9876543210\n💬 WhatsApp: +91 9876543210"
+      en: "To track your order:\n\n1. Log in to your account\n2. Go to 'My Orders' section\n3. Click on the order you want to track\n\nYou can also contact our support team:\n📞 Phone: +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      hi: "अपने ऑर्डर को ट्रैक करने के लिए:\n\n1. अपने खाते में लॉग इन करें\n2. 'मेरे ऑर्डर' अनुभाग पर जाएं\n3. उस ऑर्डर पर क्लिक करें जिसे आप ट्रैक करना चाहते हैं\n\nआप हमारी सहायता टीम से भी संपर्क कर सकते हैं:\n📞 फोन: +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      ta: "உங்கள் ஆர்டரை கண்காணிக்க:\n\n1. உங்கள் கணக்கில் உள்நுழையவும்\n2. 'எனது ஆர்டர்கள்' பிரிவுக்குச் செல்லவும்\n3. நீங்கள் கண்காணிக்க விரும்பும் ஆர்டரில் கிளிக் செய்யவும்\n\nநீங்கள் எங்கள் ஆதரவு குழுவையும் தொடர்பு கொள்ளலாம்:\n📞 தொலைபேசி: +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      te: "మీ ఆర్డర్‌ను ట్రాక్ చేయడానికి:\n\n1. మీ ఖాతాలోకి లాగిన్ అవ్వండి\n2. 'నా ఆర్డర్లు' విభాగానికి వెళ్లండి\n3. మీరు ట్రాక్ చేయాలనుకుంటున్న ఆర్డర్‌పై క్లిక్ చేయండి\n\nమీరు మా మద్దతు బృందాన్ని కూడా సంప్రదించవచ్చు:\n📞 ఫోన్: +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      kn: "ನಿಮ್ಮ ಆರ್ಡರ್ ಅನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು:\n\n1. ನಿಮ್ಮ ಖಾತೆಗೆ ಲಾಗ್ ಇನ್ ಮಾಡಿ\n2. 'ನನ್ನ ಆರ್ಡರ್‌ಗಳು' ವಿಭಾಗಕ್ಕೆ ಹೋಗಿ\n3. ನೀವು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ಬಯಸುವ ಆರ್ಡರ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ\n\nನೀವು ನಮ್ಮ ಬೆಂಬಲ ತಂಡವನ್ನು ಸಹ ಸಂಪರ್ಕಿಸಬಹುದು:\n📞 ಫೋನ್: +91 7373755589\n💬 WhatsApp: +91 7373755589",
+      ml: "നിങ്ങളുടെ ഓർഡർ ട്രാക്ക് ചെയ്യാൻ:\n\n1. നിങ്ങളുടെ അക്കൗണ്ടിലേക്ക് ലോഗിൻ ചെയ്യുക\n2. 'എന്റെ ഓർഡറുകൾ' വിഭാഗത്തിലേക്ക് പോകുക\n3. നിങ്ങൾ ട്രാക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഓർഡറിൽ ക്ലിക്ക് ചെയ്യുക\n\nനിങ്ങൾക്ക് ഞങ്ങളുടെ പിന്തുണാ ടീമിനെയും ബന്ധപ്പെടാം:\n📞 ഫോൺ: +91 7373755589\n💬 WhatsApp: +91 7373755589"
     };
     return {
       message: trackMessages[language] || trackMessages.en,
@@ -1375,8 +1375,8 @@ async function sendStatusUpdateEmail(order, customerEmail) {
               📧 office.gudy@gmail.com
             </a>
             &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="tel:+919876543210" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">
-              📞 +91 9876543210
+            <a href="tel:+917373755589" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">
+              📞 +91 7373755589
             </a>
           </div>
         </div>
