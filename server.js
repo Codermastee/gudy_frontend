@@ -297,7 +297,7 @@ const translations = {
     faqs: {
       shipping: 'Standard shipping charges of ₹40 apply on all orders.',
       delivery: 'Delivery typically takes 3-7 business days depending on your location. Metro cities receive orders within 3-4 days.',
-      cod: 'Yes! We accept Cash on Delivery (COD) for all orders. You can also pay online using UPI, cards, or net banking.',
+      cod: 'We only accept Cash on Delivery (COD). Please keep cash ready at the time of delivery.',
       returns: 'We have a 7-day return policy. If you receive a damaged or defective product, contact us within 7 days for a replacement or refund.',
       storage: 'Store in a cool, dry place in an airtight container. Keep away from moisture to prevent hardening.',
       expiry: 'Our jaggery products have a shelf life of 12 months from the date of manufacturing when stored properly.',
@@ -318,7 +318,7 @@ const translations = {
     faqs: {
       shipping: 'सभी ऑर्डर पर ₹40 शिपिंग शुल्क लागू होता है।',
       delivery: 'डिलीवरी में आमतौर पर आपके स्थान के आधार पर 3-7 व्यावसायिक दिन लगते हैं। मेट्रो शहरों में 3-4 दिनों में ऑर्डर मिलता है।',
-      cod: 'हां! हम सभी ऑर्डर के लिए कैश ऑन डिलीवरी (COD) स्वीकार करते हैं। आप UPI, कार्ड या नेट बैंकिंग का उपयोग करके ऑनलाइन भी भुगतान कर सकते हैं।',
+      cod: 'हम केवल कैश ऑन डिलीवरी (COD) स्वीकार करते हैं। डिलीवरी के समय नकद तैयार रखें।',
       returns: 'हमारे पास 7 दिन की रिटर्न पॉलिसी है। यदि आपको क्षतिग्रस्त या दोषपूर्ण उत्पाद मिलता है, तो प्रतिस्थापन या रिफंड के लिए 7 दिनों के भीतर हमसे संपर्क करें।',
       storage: 'एयरटाइट कंटेनर में ठंडी, सूखी जगह पर स्टोर करें। सख्त होने से रोकने के लिए नमी से दूर रखें।',
       expiry: 'हमारे गुड़ उत्पादों की शेल्फ लाइफ निर्माण की तारीख से 12 महीने है जब उचित रूप से संग्रहीत किया जाता है।',
@@ -339,7 +339,7 @@ const translations = {
     faqs: {
       shipping: 'அனைத்து ஆர்டர்களுக்கும் ₹40 ஷிப்பிங் கட்டணம் பொருந்தும்.',
       delivery: 'உங்கள் இடத்தைப் பொறுத்து பொதுவாக டெலிவரிக்கு 3-7 வணிக நாட்கள் ஆகும். மெட்ரோ நகரங்கள் 3-4 நாட்களில் ஆர்டர்களைப் பெறுகின்றன.',
-      cod: 'ஆம்! அனைத்து ஆர்டர்களுக்கும் கேஷ் ஆன் டெலிவரி (COD) ஏற்றுக்கொள்கிறோம். UPI, கார்டுகள் அல்லது நெட் பேங்கிங் பயன்படுத்தி ஆன்லைனில் பணம் செலுத்தலாம்.',
+      cod: 'நாங்கள் கேஷ் ஆன் டெலிவரி (COD) மட்டுமே ஏற்றுக்கொள்கிறோம். டெலிவரி நேரத்தில் பணம் தயாராக வைத்திருக்கவும்.',
       returns: 'எங்களிடம் 7 நாள் திரும்பப் பெறும் கொள்கை உள்ளது. சேதமடைந்த அல்லது குறைபாடுள்ள தயாரிப்பு கிடைத்தால், மாற்று அல்லது பணத்திருப்பிக்கு 7 நாட்களுக்குள் எங்களைத் தொடர்பு கொள்ளவும்.',
       storage: 'காற்று புகாத கொள்கலனில் குளிர்ந்த, வறண்ட இடத்தில் சேமிக்கவும். கடினமாவதைத் தடுக்க ஈரப்பதத்திலிருந்து விலகி வைக்கவும்.',
       expiry: 'எங்கள் வெல்லம் பொருட்கள் சரியாக சேமித்தால் உற்பத்தி தேதியிலிருந்து 12 மாதங்கள் ஆயுட்காலம் உள்ளன.',
@@ -360,7 +360,7 @@ const translations = {
     faqs: {
       shipping: 'అన్ని ఆర్డర్లకు ₹40 షిప్పింగ్ ఛార్జీలు వర్తిస్తాయి.',
       delivery: 'మీ స్థానాన్ని బట్టి డెలివరీకి సాధారణంగా 3-7 వ్యాపార దినాలు పడుతుంది. మెట్రో నగరాలు 3-4 రోజుల్లో ఆర్డర్లను అందుకుంటాయి.',
-      cod: 'అవును! అన్ని ఆర్డర్లకు క్యాష్ ఆన్ డెలివరీ (COD) అంగీకరిస్తాము. UPI, కార్డులు లేదా నెట్ బ్యాంకింగ్ ఉపయోగించి ఆన్లైన్లో కూడా చెల్లించవచ్చు.',
+      cod: 'మేము క్యాష్ ఆన్ డెలివరీ (COD) మాత్రమే అంగీకరిస్తాము. డెలివరీ సమయంలో నగదు సిద్ధంగా ఉంచండి.',
       returns: 'మాకు 7 రోజుల రిటర్న్ పాలసీ ఉంది. మీకు దెబ్బతిన్న లేదా లోపభూయిష్ట ఉత్పత్తి లభించినట్లయితే, రీప్లేస్మెంట్ లేదా రీఫండ్ కోసం 7 రోజుల్లో మమ్మల్ని సంప్రదించండి.',
       storage: 'గాలి చొరబడని కంటైనర్లో చల్లని, పొడి ప్రదేశంలో నిల్వ చేయండి. గట్టిపడకుండా తేమ నుండి దూరంగా ఉంచండి.',
       expiry: 'మా బెల్లం ఉత్పత్తులు సరిగ్గా నిల్వ చేసినప్పుడు తయారీ తేదీ నుండి 12 నెలల షెల్ఫ్ జీవితం కలిగి ఉంటాయి.',
@@ -381,7 +381,7 @@ const translations = {
     faqs: {
       shipping: 'ಎಲ್ಲಾ ಆರ್ಡರ್‌ಗಳಿಗೆ ₹40 ಶಿಪ್ಪಿಂಗ್ ಶುಲ್ಕ ಅನ್ವಯವಾಗುತ್ತದೆ.',
       delivery: 'ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಅವಲಂಬಿಸಿ ವಿತರಣೆಗೆ ಸಾಮಾನ್ಯವಾಗಿ 3-7 ವ್ಯಾಪಾರ ದಿನಗಳು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ. ಮೆಟ್ರೋ ನಗರಗಳಿಗೆ 3-4 ದಿನಗಳಲ್ಲಿ ಆರ್ಡರ್‌ಗಳು ಸಿಗುತ್ತವೆ.',
-      cod: 'ಹೌದು! ನಾವು ಎಲ್ಲಾ ಆರ್ಡರ್‌ಗಳಿಗೆ ಕ್ಯಾಶ್ ಆನ್ ಡೆಲಿವರಿ (COD) ಅನ್ನು ಸ್ವೀಕರಿಸುತ್ತೇವೆ. UPI, ಕಾರ್ಡ್‌ಗಳು ಅಥವಾ ನೆಟ್ ಬ್ಯಾಂಕಿಂಗ್ ಬಳಸಿಕೊಂಡು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಪಾವತಿಸಬಹುದು.',
+      cod: 'ನಾವು ಕ್ಯಾಶ್ ಆನ್ ಡೆಲಿವರಿ (COD) ಮಾತ್ರ ಸ್ವೀಕರಿಸುತ್ತೇವೆ. ಡೆಲಿವರಿ ಸಮಯದಲ್ಲಿ ನಗದು ಸಿದ್ಧವಾಗಿಟ್ಟುಕೊಳ್ಳಿ.',
       returns: 'ನಮಗೆ 7-ದಿನದ ರಿಟರ್ನ್ ನೀತಿ ಇದೆ. ನಿಮಗೆ ಹಾನಿಗೊಳಗಾದ ಅಥವಾ ದೋಷಪೂರಿತ ಉತ್ಪನ್ನ ಸಿಕ್ಕರೆ, ಬದಲಿ ಅಥವಾ ಮರುಪಾವತಿಗಾಗಿ 7 ದಿನಗಳಲ್ಲಿ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ.',
       storage: 'ಗಾಳಿಯಾಡದ ಪಾತ್ರೆಯಲ್ಲಿ ತಂಪಾದ, ಒಣ ಸ್ಥಳದಲ್ಲಿ ಸಂಗ್ರಹಿಸಿ. ಗಟ್ಟಿಯಾಗುವುದನ್ನು ತಡೆಯಲು ತೇವಾಂಶದಿಂದ ದೂರವಿರಿಸಿ.',
       expiry: 'ನಮ್ಮ ಬೆಲ್ಲದ ಉತ್ಪನ್ನಗಳು ಸರಿಯಾಗಿ ಸಂಗ್ರಹಿಸಿದಾಗ ತಯಾರಿಕೆಯ ದಿನಾಂಕದಿಂದ 12 ತಿಂಗಳ ಶೆಲ್ಫ್ ಲೈಫ್ ಅನ್ನು ಹೊಂದಿವೆ.',
@@ -402,7 +402,7 @@ const translations = {
     faqs: {
       shipping: 'എല്ലാ ഓർഡറുകൾക്കും ₹40 ഷിപ്പിംഗ് ചാർജ് ബാധകമാണ്.',
       delivery: 'നിങ്ങളുടെ സ്ഥലത്തെ ആശ്രയിച്ച് ഡെലിവറിയിൽ സാധാരണയായി 3-7 പ്രവൃത്തി ദിവസങ്ങൾ എടുക്കും. മെട്രോ നഗരങ്ങളിൽ 3-4 ദിവസങ്ങൾക്കുള്ളിൽ ഓർഡറുകൾ ലഭിക്കും.',
-      cod: 'അതെ! എല്ലാ ഓർഡറുകൾക്കും ഞങ്ങൾ ക്യാഷ് ഓൺ ഡെലിവറി (COD) സ്വീകരിക്കുന്നു. UPI, കാർഡുകൾ, അല്ലെങ്കിൽ നെറ്റ് ബാങ്കിംഗ് ഉപയോഗിച്ച് ഓൺലൈനായി പണമടയ്ക്കാം.',
+      cod: 'ഞങ്ങൾ ക്യാഷ് ഓൺ ഡെലിവറി (COD) മാത്രം സ്വീകരിക്കുന്നു. ഡെലിവറി സമയത്ത് പണം തയ്യാറായി വെക്കുക.',
       returns: 'ഞങ്ങൾക്ക് 7 ദിവസത്തെ റിട്ടേൺ പോളിസി ഉണ്ട്. കേടായതോ വികലമായതോ ആയ ഉൽപ്പന്നം ലഭിച്ചാൽ, മാറ്റിസ്ഥാപനത്തിനോ റീഫണ്ടിനോ 7 ദിവസത്തിനുള്ളിൽ ഞങ്ങളെ ബന്ധപ്പെടുക.',
       storage: 'വായുകടക്കാത്ത പാത്രത്തിൽ തണുത്തതും വരണ്ടതുമായ സ്ഥലത്ത് സൂക്ഷിക്കുക. കഠിനമാകുന്നത് തടയാൻ ഈർപ്പത്തിൽ നിന്ന് അകറ്റി നിർത്തുക.',
       expiry: 'ശരിയായി സൂക്ഷിച്ചാൽ നിർമ്മാണ തീയതി മുതൽ ഞങ്ങളുടെ ശർക്കര ഉൽപ്പന്നങ്ങൾക്ക് 12 മാസത്തെ ഷെൽഫ് ലൈഫ് ഉണ്ട്.',
@@ -479,7 +479,7 @@ const translations = {
     faqs: {
       shipping: 'Se aplican cargos de envío estándar de ₹40 en todos los pedidos.',
       delivery: 'La entrega generalmente toma de 3 a 7 días hábiles dependiendo de tu ubicación.',
-      cod: '¡Sí! Aceptamos Pago Contra Entrega (COD) para todos los pedidos.',
+      cod: 'Solo aceptamos Pago Contra Entrega (COD). Por favor tenga el efectivo listo al momento de la entrega.',
       returns: 'Tenemos una política de devolución de 7 días.',
       storage: 'Almacenar en un lugar fresco y seco en un recipiente hermético.',
       expiry: 'Nuestros productos tienen una vida útil de 12 meses desde la fecha de fabricación cuando se almacenan correctamente.',
@@ -494,7 +494,7 @@ const translations = {
     faqs: {
       shipping: 'Des frais de livraison standard de ₹40 s\'appliquent sur toutes les commandes.',
       delivery: 'La livraison prend généralement 3 à 7 jours ouvrables selon votre emplacement.',
-      cod: 'Oui! Nous acceptons le paiement à la livraison (COD) pour toutes les commandes.',
+      cod: 'Nous acceptons uniquement le paiement à la livraison (COD). Veuillez avoir l\'argent liquide prêt à la livraison.',
       returns: 'Nous avons une politique de retour de 7 jours.',
       storage: 'Conserver dans un endroit frais et sec dans un récipient hermétique.',
       expiry: 'Nos produits ont une durée de conservation de 12 mois à partir de la date de fabrication lorsqu\'ils sont stockés correctement.',
@@ -509,7 +509,7 @@ const translations = {
     faqs: {
       shipping: 'Für alle Bestellungen fallen Standardversandkosten von ₹40 an.',
       delivery: 'Die Lieferung dauert in der Regel 3-7 Werktage, abhängig von Ihrem Standort.',
-      cod: 'Ja! Wir akzeptieren Nachnahme (COD) für alle Bestellungen.',
+      cod: 'Wir akzeptieren nur Nachnahme (COD). Bitte halten Sie bei der Lieferung Bargeld bereit.',
       returns: 'Wir haben eine 7-tägige Rückgaberichtlinie.',
       storage: 'An einem kühlen, trockenen Ort in einem luftdichten Behälter aufbewahren.',
       expiry: 'Unsere Produkte haben eine Haltbarkeit von 12 Monaten ab Herstellungsdatum bei ordnungsgemäßer Lagerung.',
@@ -524,7 +524,7 @@ const translations = {
     faqs: {
       shipping: 'تطبق رسوم شحن قياسية قدرها ₹40 على جميع الطلبات.',
       delivery: 'عادة ما يستغرق التسليم من 3 إلى 7 أيام عمل حسب موقعك.',
-      cod: 'نعم! نقبل الدفع عند الاستلام (COD) لجميع الطلبات.',
+      cod: 'نقبل الدفع عند الاستلام (COD) فقط. يرجى تحضير النقود عند التسليم.',
       returns: 'لدينا سياسة إرجاع لمدة 7 أيام.',
       storage: 'التخزين في مكان بارد وجاف في حاوية محكمة الإغلاق.',
       expiry: 'منتجاتنا لها عمر تخزين مدته 12 شهراً من تاريخ التصنيع عند التخزين بشكل صحيح.',
@@ -635,7 +635,7 @@ CONTACT INFORMATION:
 KEY FAQs:
 🚚 Shipping: ${t.faqs.shipping}
 📦 Delivery: ${t.faqs.delivery}
-💰 Payment: ${t.faqs.cod}
+💰 Payment: Cash on Delivery (COD) only
 🔄 Returns: ${t.faqs.returns}
 📦 Storage: ${t.faqs.storage}
 ⏳ Shelf Life: ${t.faqs.expiry}
@@ -714,28 +714,28 @@ function generateQuickReplies(message, language = 'en') {
   const quickRepliesMap = {
     en: {
       default: ["View products", "Shipping info", "Track order", "Contact support"],
-      products: ["Powder products", "Cube products", "Health benefits", "Place order"],
+      products: ["Powder products", "Cube products", "Health benefits"],
       order: ["Track order", "Order status", "Return policy", "Contact support"],
       cart: ["View cart", "Checkout", "Continue shopping", "Clear cart"],
       shipping: ["Track order", "Return policy", "Contact support", "View products"]
     },
     hi: {
       default: ["उत्पाद देखें", "शिपिंग जानकारी", "ऑर्डर ट्रैक करें", "सहायता से संपर्क करें"],
-      products: ["पाउडर उत्पाद", "क्यूब उत्पाद", "स्वास्थ्य लाभ", "ऑर्डर करें"],
+      products: ["पाउडर उत्पाद", "क्यूब उत्पाद", "स्वास्थ्य लाभ"],
       order: ["ऑर्डर ट्रैक करें", "ऑर्डर स्थिति", "रिटर्न पॉलिसी", "सहायता से संपर्क करें"],
       cart: ["कार्ट देखें", "चेकआउट", "खरीदारी जारी रखें", "कार्ट साफ़ करें"],
       shipping: ["ऑर्डर ट्रैक करें", "रिटर्न पॉलिसी", "सहायता से संपर्क करें", "उत्पाद देखें"]
     },
     ta: {
       default: ["தயாரிப்புகளைக் காண்க", "ஷிப்பிங் தகவல்", "ஆர்டரைக் கண்காணிக்கவும்", "ஆதரவைத் தொடர்பு கொள்ளுங்கள்"],
-      products: ["பொடி தயாரிப்புகள்", "க்யூப் தயாரிப்புகள்", "ஆரோக்கிய நன்மைகள்", "ஆர்டர் செய்யுங்கள்"],
+      products: ["பொடி தயாரிப்புகள்", "க்யூப் தயாரிப்புகள்", "ஆரோக்கிய நன்மைகள்"],
       order: ["ஆர்டரைக் கண்காணிக்கவும்", "ஆர்டர் நிலை", "திரும்பப் பெறும் கொள்கை", "ஆதரவைத் தொடர்பு கொள்ளுங்கள்"],
       cart: ["கார்ட்டைக் காண்க", "செக்அவுட்", "ஷாப்பிங் தொடரவும்", "கார்ட்டை அழிக்கவும்"],
       shipping: ["ஆர்டரைக் கண்காணிக்கவும்", "திரும்பப் பெறும் கொள்கை", "ஆதரவைத் தொடர்பு கொள்ளுங்கள்", "தயாரிப்புகளைக் காண்க"]
     },
     te: {
       default: ["ఉత్పత్తులను చూడండి", "షిప్పింగ్ సమాచారం", "ఆర్డర్‌ను ట్రాక్ చేయండి", "మద్దతును సంప్రదించండి"],
-      products: ["పొడి ఉత్పత్తులు", "క్యూబ్ ఉత్పత్తులు", "ఆరోగ్య ప్రయోజనాలు", "ఆర్డర్ చేయండి"],
+      products: ["పొడి ఉత్పత్తులు", "క్యూబ్ ఉత్పత్తులు", "ఆరోగ్య ప్రయోజనాలు"],
       order: ["ఆర్డర్‌ను ట్రాక్ చేయండి", "ఆర్డర్ స్థితి", "రిటర్న్ విధానం", "మద్దతును సంప్రదించండి"],
       cart: ["కార్ట్‌ను చూడండి", "చెక్అవుట్", "షాపింగ్ కొనసాగించండి", "కార్ట్‌ను క్లియర్ చేయండి"],
       shipping: ["ఆర్డర్‌ను ట్రాక్ చేయండి", "రిటర్న్ విధానం", "మద్దతును సంప్రదించండి", "ఉత్పత్తులను చూడండి"]
