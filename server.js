@@ -28,6 +28,8 @@ app.use(express.json());
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendOrderNotification(order) {
+  const has750g = order.items.some(item => item.name?.toLowerCase().includes('750'));
+
   const itemsHTML = order.items.map(item => `
     <tr>
       <td style="padding:10px;border-bottom:1px solid #f0e0cc;">${item.name}</td>
@@ -35,7 +37,14 @@ async function sendOrderNotification(order) {
       <td style="padding:10px;border-bottom:1px solid #f0e0cc;">x${item.quantity}</td>
       <td style="padding:10px;border-bottom:1px solid #f0e0cc;font-weight:600;">₹${item.priceINR * item.quantity}</td>
     </tr>
-  `).join('');
+  `).join('') + (has750g ? `
+    <tr style="background:#FFF8E7;">
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">🎁 Free Gift – Jaggery Powder Jar 250g</td>
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">250g</td>
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">x1</td>
+      <td style="padding:10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#2d6a4f;">FREE</td>
+    </tr>
+  ` : '');
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;border:1px solid #f0e0cc;border-radius:12px;overflow:hidden;">
@@ -106,6 +115,8 @@ async function sendOrderNotification(order) {
 // ==================== CUSTOMER ORDER CONFIRMATION EMAIL ====================
 
 async function sendOrderConfirmationToCustomer(order, customerEmail) {
+  const has750g = order.items.some(item => item.name?.toLowerCase().includes('750'));
+
   const itemsHTML = order.items.map(item => `
     <tr>
       <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">${item.name}</td>
@@ -113,7 +124,24 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
       <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#2C1810;">x${item.quantity}</td>
       <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#6B4423;">₹${item.priceINR * item.quantity}</td>
     </tr>
-  `).join('');
+  `).join('') + (has750g ? `
+    <tr style="background:#FFF8E7;">
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">🎁 Free Gift – Jaggery Powder Jar 250g</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">250g</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#7a4f00;">x1</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#2d6a4f;">FREE</td>
+    </tr>
+  ` : '');
+
+  const freeGiftBannerHTML = has750g ? `
+    <div style="background:#FFF8E7;border:1.5px dashed #d4a03a;border-radius:10px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:28px;">🎁</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#7a4f00;">You've earned a Free Gift!</div>
+        <div style="font-size:13px;color:#b07d2a;margin-top:2px;">1 × Jaggery Powder Jar 250g is included FREE with your 750g order.</div>
+      </div>
+    </div>
+  ` : '';
 
   const paymentLabel = order.paymentMethod === 'cod'
     ? '💵 Cash on Delivery'
@@ -167,6 +195,9 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
             </thead>
             <tbody>${itemsHTML}</tbody>
           </table>
+
+          <!-- Free Gift Banner -->
+          ${freeGiftBannerHTML}
 
           <!-- Total -->
           <div style="background:linear-gradient(135deg,#2C1A0E,#6B4423);border-radius:10px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
