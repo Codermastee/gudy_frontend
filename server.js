@@ -114,31 +114,72 @@ async function sendOrderNotification(order) {
 
 // ==================== CUSTOMER ORDER CONFIRMATION EMAIL ====================
 
+// ==================== CUSTOMER ORDER CONFIRMATION EMAIL ====================
+
 async function sendOrderConfirmationToCustomer(order, customerEmail) {
-  const has750g = order.items.some(item => item.name?.toLowerCase().includes('750'));
+
+  // Check if email exists
+  if (!customerEmail || customerEmail.trim() === '') {
+    console.log("❌ Customer email missing");
+    return;
+  }
+
+  console.log("📧 Sending email to:", customerEmail);
+
+  const has750g = order.items.some(item =>
+    item.name?.toLowerCase().includes('750')
+  );
 
   const itemsHTML = order.items.map(item => `
     <tr>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">${item.name}</td>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">${item.weight}</td>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#2C1810;">x${item.quantity}</td>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#6B4423;">₹${item.priceINR * item.quantity}</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">
+        ${item.name}
+      </td>
+
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">
+        ${item.weight}
+      </td>
+
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#2C1810;">
+        x${item.quantity}
+      </td>
+
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#6B4423;">
+        ₹${item.priceINR * item.quantity}
+      </td>
     </tr>
   `).join('') + (has750g ? `
     <tr style="background:#FFF8E7;">
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">🎁 Free Gift – Jaggery Powder Jar 250g</td>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">250g</td>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#7a4f00;">x1</td>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#2d6a4f;">FREE</td>
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">
+        🎁 Free Gift – Jaggery Powder Jar 250g
+      </td>
+
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">
+        250g
+      </td>
+
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#7a4f00;">
+        x1
+      </td>
+
+      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#2d6a4f;">
+        FREE
+      </td>
     </tr>
   ` : '');
 
   const freeGiftBannerHTML = has750g ? `
     <div style="background:#FFF8E7;border:1.5px dashed #d4a03a;border-radius:10px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
       <span style="font-size:28px;">🎁</span>
+
       <div>
-        <div style="font-size:14px;font-weight:700;color:#7a4f00;">You've earned a Free Gift!</div>
-        <div style="font-size:13px;color:#b07d2a;margin-top:2px;">1 × Jaggery Powder Jar 250g is included FREE with your 750g order.</div>
+        <div style="font-size:14px;font-weight:700;color:#7a4f00;">
+          You've earned a Free Gift!
+        </div>
+
+        <div style="font-size:13px;color:#b07d2a;margin-top:2px;">
+          1 × Jaggery Powder Jar 250g is included FREE with your 750g order.
+        </div>
       </div>
     </div>
   ` : '';
@@ -150,141 +191,188 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
   const estimatedDelivery = (() => {
     const d = new Date();
     d.setDate(d.getDate() + 5);
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    return d.toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
   })();
 
   const html = `
     <!DOCTYPE html>
+
     <html>
-    <head><meta charset="UTF-8"/></head>
+
+    <head>
+      <meta charset="UTF-8"/>
+    </head>
+
     <body style="margin:0;padding:0;background:#FFF8F0;font-family:Arial,sans-serif;">
 
       <div style="max-width:600px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(107,68,35,0.10);border:1px solid #f0e0cc;">
 
         <!-- Header -->
         <div style="background:linear-gradient(135deg,#2C1A0E 0%,#6B4423 100%);padding:36px 28px;text-align:center;">
+
           <div style="font-size:48px;margin-bottom:8px;">🎉</div>
-          <h1 style="color:#FF9500;margin:0 0 6px;font-size:26px;letter-spacing:0.5px;">Order Confirmed!</h1>
-          <p style="color:rgba(255,255,255,0.85);margin:0;font-size:15px;">Thank you for shopping with GUDY Organics</p>
+
+          <h1 style="color:#FF9500;margin:0 0 6px;font-size:26px;">
+            Order Confirmed!
+          </h1>
+
+          <p style="color:rgba(255,255,255,0.85);margin:0;font-size:15px;">
+            Thank you for shopping with GUDY Organics
+          </p>
+
         </div>
 
-        <!-- Order ID Banner -->
+        <!-- Order ID -->
         <div style="background:#FFF3E0;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0e0cc;">
-          <span style="color:#7A6455;font-size:13px;">Order ID</span>
-          <span style="color:#6B4423;font-weight:700;font-size:15px;">#GUDY-${String(order.id).padStart(5,'0')}</span>
+
+          <span style="color:#7A6455;font-size:13px;">
+            Order ID
+          </span>
+
+          <span style="color:#6B4423;font-weight:700;font-size:15px;">
+            #GUDY-${String(order.id).padStart(5,'0')}
+          </span>
+
         </div>
 
         <div style="padding:28px;">
 
-          <!-- Greeting -->
           <p style="color:#2C1810;font-size:15px;margin:0 0 24px;">
-            Hi <strong>${order.shippingAddress.fullName}</strong>, your order has been successfully placed! 
-            We'll notify you once it's shipped. 🚚
+
+            Hi <strong>${order.shippingAddress.fullName}</strong>,
+
+            your order has been successfully placed!
+
           </p>
 
-          <!-- Order Items -->
-          <h2 style="color:#6B4423;font-size:15px;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #f0e0cc;">🛍️ Items Ordered</h2>
+          ${freeGiftBannerHTML}
+
+          <!-- Items -->
           <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+
             <thead>
-              <tr style="background:#6B4423;">
-                <th style="padding:10px;text-align:left;color:#fff;font-size:13px;border-radius:4px 0 0 0;">Product</th>
-                <th style="padding:10px;text-align:left;color:#fff;font-size:13px;">Weight</th>
-                <th style="padding:10px;text-align:center;color:#fff;font-size:13px;">Qty</th>
-                <th style="padding:10px;text-align:left;color:#fff;font-size:13px;border-radius:0 4px 0 0;">Price</th>
+              <tr style="background:#6B4423;color:white;">
+
+                <th style="padding:10px;text-align:left;">
+                  Product
+                </th>
+
+                <th style="padding:10px;text-align:left;">
+                  Weight
+                </th>
+
+                <th style="padding:10px;text-align:center;">
+                  Qty
+                </th>
+
+                <th style="padding:10px;text-align:left;">
+                  Price
+                </th>
+
               </tr>
             </thead>
-            <tbody>${itemsHTML}</tbody>
-          </table>
 
-          <!-- Free Gift Banner -->
-          ${freeGiftBannerHTML}
+            <tbody>
+              ${itemsHTML}
+            </tbody>
+
+          </table>
 
           <!-- Total -->
           <div style="background:linear-gradient(135deg,#2C1A0E,#6B4423);border-radius:10px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-            <span style="color:rgba(255,255,255,0.8);font-size:14px;">Total Amount</span>
-            <span style="color:#FF9500;font-size:28px;font-weight:900;">₹${order.totalAmount}</span>
+
+            <span style="color:rgba(255,255,255,0.8);font-size:14px;">
+              Total Amount
+            </span>
+
+            <span style="color:#FF9500;font-size:28px;font-weight:900;">
+              ₹${order.totalAmount}
+            </span>
+
           </div>
 
-          <!-- Two Columns: Shipping + Payment -->
-          <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
-            <tr>
-              <td style="width:50%;vertical-align:top;padding-right:10px;">
-                <div style="background:#FDF6EE;border-radius:10px;padding:16px;">
-                  <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">📦 Shipping To</h3>
-                  <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
-                    <strong>${order.shippingAddress.fullName}</strong><br/>
-                    ${order.shippingAddress.address},<br/>
-                    ${order.shippingAddress.city}, ${order.shippingAddress.state}<br/>
-                    Pincode: ${order.shippingAddress.pincode}<br/>
-                    📞 ${order.shippingAddress.phone}
-                  </p>
-                </div>
-              </td>
-              <td style="width:50%;vertical-align:top;padding-left:10px;">
-                <div style="background:#FDF6EE;border-radius:10px;padding:16px;">
-                  <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">💳 Payment Info</h3>
-                  <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
-                    <strong>${paymentLabel}</strong><br/><br/>
-                    <span style="color:#7A6455;">Est. Delivery by</span><br/>
-                    <strong>${estimatedDelivery}</strong>
-                  </p>
-                </div>
-              </td>
-            </tr>
-          </table>
+          <!-- Shipping -->
+          <div style="background:#FDF6EE;border-radius:10px;padding:16px;margin-bottom:24px;">
 
-          <!-- What's Next -->
-          <div style="background:#F0FFF4;border:1px solid #B7EBC9;border-radius:10px;padding:16px;margin-bottom:24px;">
-            <h3 style="color:#276749;font-size:13px;margin:0 0 10px;">✅ What happens next?</h3>
-            <ol style="color:#2C1810;font-size:13px;margin:0;padding-left:18px;line-height:2;">
-              <li>We'll verify and process your order within 24 hours</li>
-              <li>Your order will be packed with care</li>
-              <li>You'll receive tracking details once shipped</li>
-              <li>Estimated delivery in 3–7 business days</li>
-            </ol>
-          </div>
+            <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">
+              Shipping Address
+            </h3>
 
-          <!-- Track Your Order -->
-          <div style="background:linear-gradient(135deg,#FFF8F0,#FDF0E0);border:2px solid #F0A500;border-radius:12px;padding:20px;margin-bottom:24px;text-align:center;">
-            <h3 style="color:#6B4423;font-size:15px;margin:0 0 6px;">📦 Track Your Order</h3>
-            <p style="color:#7A6455;font-size:13px;margin:0 0 14px;">Use the Order ID below to track your shipment status</p>
-            <div style="display:inline-block;background:#fff;border:2px dashed #F0A500;border-radius:8px;padding:10px 28px;margin-bottom:14px;">
-              <span style="color:#6B4423;font-size:22px;font-weight:900;letter-spacing:2px;">#GUDY-${String(order.id).padStart(5,'0')}</span>
-            </div>
-            <p style="color:#7A6455;font-size:12px;margin:0;">
-              You can quote this ID when contacting us about your order status.<br/>
-              We'll also send you tracking details via email once your order is shipped. 🚚
+            <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
+
+              <strong>${order.shippingAddress.fullName}</strong><br/>
+
+              ${order.shippingAddress.address},<br/>
+
+              ${order.shippingAddress.city},
+              ${order.shippingAddress.state}<br/>
+
+              Pincode:
+              ${order.shippingAddress.pincode}<br/>
+
+              📞 ${order.shippingAddress.phone}
+
             </p>
+
           </div>
 
-          <!-- Need Help -->
-          <div style="text-align:center;padding:16px;background:#FDF6EE;border-radius:10px;">
-            <p style="color:#7A6455;font-size:13px;margin:0 0 8px;">Need help with your order?</p>
-            <a href="mailto:office.gudy@gmail.com" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">📧 office.gudy@gmail.com</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="tel:+917373755589" style="color:#6B4423;font-weight:700;font-size:13px;text-decoration:none;">📞 +91 7373755589</a>
+          <!-- Payment -->
+          <div style="background:#FDF6EE;border-radius:10px;padding:16px;margin-bottom:24px;">
+
+            <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">
+              Payment Info
+            </h3>
+
+            <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
+
+              <strong>${paymentLabel}</strong><br/><br/>
+
+              Estimated Delivery:<br/>
+
+              <strong>${estimatedDelivery}</strong>
+
+            </p>
+
           </div>
 
-        </div>
-
-        <!-- Footer -->
-        <div style="background:#2C1A0E;padding:20px;text-align:center;">
-          <p style="color:#FF9500;font-size:14px;font-weight:700;margin:0 0 4px;">GUDY Organics</p>
-          <p style="color:rgba(255,255,255,0.5);font-size:11px;margin:0;">Premium Jaggery | 100% Organic | Chemical Free</p>
-          <p style="color:rgba(255,255,255,0.3);font-size:10px;margin:8px 0 0;">© ${new Date().getFullYear()} GUDY Organics. All rights reserved.</p>
         </div>
 
       </div>
+
     </body>
+
     </html>
   `;
 
-  await resend.emails.send({
-    from: 'GUDY Organics <onboarding@resend.dev>',
-    to: customerEmail,
-    subject: `✅ Order Confirmed #GUDY-${String(order.id).padStart(5,'0')} – ₹${order.totalAmount}`,
-    html,
-  });
+  // ==================== EMAIL SEND ====================
+
+  try {
+
+    const response = await resend.emails.send({
+
+      from: 'GUDY Organics <onboarding@resend.dev>',
+
+      to: customerEmail,
+
+      subject: `✅ Order Confirmed #GUDY-${String(order.id).padStart(5,'0')} – ₹${order.totalAmount}`,
+
+      html,
+
+    });
+
+    console.log("✅ EMAIL SUCCESS:", response);
+
+  } catch (error) {
+
+    console.error("❌ EMAIL ERROR:", error);
+
+  }
+
 }
 
 // ── Optional auth — sets req.user if valid token present, allows guests through ──
@@ -1300,7 +1388,7 @@ app.post('/api/orders', optionalAuth, async (req, res) => {
 
     // Send emails BEFORE responding (Vercel kills background tasks after response)
     const orderData = { ...order, items, shippingAddress, paymentMethod, totalAmount };
-    const customerEmail = req.user?.email || shippingAddress?.email;
+    const customerEmail = req.user?.email || shippingAddress?.email || order.shippingAddress?.email;
 
     const bgTasks = [
       sendOrderNotification(orderData),
@@ -1493,7 +1581,7 @@ async function sendStatusUpdateEmail(order, customerEmail) {
   `;
 
   await resend.emails.send({
-    from: 'GUDY Organics <onboarding@resend.dev>',
+    from: 'GUDY Organics <orders@gudyjaggery.com>',
     to: customerEmail,
     subject: `${meta.emoji} ${meta.title} – ${orderId}`,
     html,
