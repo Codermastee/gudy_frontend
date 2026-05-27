@@ -51,7 +51,7 @@ async function sendOrderNotification(order) {
 
       <div style="background:linear-gradient(135deg,#2C1A0E,#6B4423);padding:28px;text-align:center;">
         <h1 style="color:#FF9500;margin:0;font-size:24px;">🛒 New Order Received!</h1>
-        <p style="color:rgba(255,255,255,0.8);margin:8px 0 0;">GUDY Organics Admin Notification</p>
+        <p style="color:rgba(255,255,255,0.8);margin:8px 0 0;">GUDY  Admin Notification</p>
       </div>
 
       <div style="padding:28px;background:#fff;">
@@ -99,13 +99,13 @@ async function sendOrderNotification(order) {
       </div>
 
       <div style="background:#FDF6EE;padding:16px;text-align:center;">
-        <p style="color:#9A8070;font-size:12px;margin:0;">© ${new Date().getFullYear()} GUDY Organics · office.gudy@gmail.com</p>
+        <p style="color:#9A8070;font-size:12px;margin:0;">© ${new Date().getFullYear()} GUDY  · office.gudy@gmail.com</p>
       </div>
     </div>
   `;
 
   await resend.emails.send({
-    from: 'GUDY Organics <orders@gudyjaggery.com>',
+    from: 'GUDY  <orders@gudyjaggery.com>',
     to: process.env.ADMIN_EMAIL,
     subject: `🛒 New Order – ₹${order.totalAmount} from ${order.shippingAddress.fullName}`,
     html,
@@ -179,7 +179,7 @@ async function sendOrderConfirmationToCustomer(order, customerEmail) {
         <div style="background:#6B4423;color:white;padding:25px;text-align:center;">
 
           <h1 style="margin:0;">
-            GUDY Organics
+            GUDY 
           </h1>
 
           <p style="margin-top:10px;">
@@ -297,7 +297,7 @@ ${order.shippingAddress.fullName}<br>
           <div style="margin-top:40px;text-align:center;color:#777;font-size:14px;">
 
             <p>
-              Thank you for choosing GUDY Organics ❤️
+              Thank you for choosing GUDY  ❤️
             </p>
 
           </div>
@@ -313,7 +313,7 @@ ${order.shippingAddress.fullName}<br>
 
     const response = await resend.emails.send({
 
-      from: 'GUDY Organics <orders@gudyjaggery.com>',
+      from: 'GUDY  <orders@gudyjaggery.com>',
 
       to: customerEmail,
 
@@ -1476,7 +1476,7 @@ async function sendStatusUpdateEmail(order, customerEmail) {
         <div style="background:linear-gradient(135deg,#2C1A0E 0%,#6B4423 100%);padding:36px 28px;text-align:center;">
           <div style="font-size:48px;margin-bottom:8px;">${meta.emoji}</div>
           <h1 style="color:#FF9500;margin:0 0 6px;font-size:24px;">${meta.title}</h1>
-          <p style="color:rgba(255,255,255,0.8);margin:0;font-size:14px;">GUDY Organics · Order Update</p>
+          <p style="color:rgba(255,255,255,0.8);margin:0;font-size:14px;">GUDY  · Order Update</p>
         </div>
 
         <div style="background:#FFF3E0;padding:12px 28px;border-bottom:1px solid #f0e0cc;display:flex;
@@ -1530,16 +1530,16 @@ async function sendStatusUpdateEmail(order, customerEmail) {
         </div>
 
         <div style="background:#2C1A0E;padding:20px;text-align:center;">
-          <p style="color:#FF9500;font-size:14px;font-weight:700;margin:0 0 4px;">GUDY Organics</p>
+          <p style="color:#FF9500;font-size:14px;font-weight:700;margin:0 0 4px;">GUDY </p>
           <p style="color:rgba(255,255,255,0.5);font-size:11px;margin:0;">Premium Jaggery · 100% Organic · Chemical Free</p>
-          <p style="color:rgba(255,255,255,0.3);font-size:10px;margin:8px 0 0;">© ${new Date().getFullYear()} GUDY Organics. All rights reserved.</p>
+          <p style="color:rgba(255,255,255,0.3);font-size:10px;margin:8px 0 0;">© ${new Date().getFullYear()} GUDY . All rights reserved.</p>
         </div>
       </div>
     </body></html>
   `;
 
   await resend.emails.send({
-    from: 'GUDY Organics <orders@gudyjaggery.com>',
+    from: 'GUDY  <orders@gudyjaggery.com>',
     to: customerEmail,
     subject: `${meta.emoji} ${meta.title} – ${orderId}`,
     html,
@@ -1551,7 +1551,7 @@ async function sendStatusUpdateEmail(order, customerEmail) {
 app.get('/api/test-email', async (req, res) => {
   try {
     await resend.emails.send({
-      from: 'GUDY Organics <orders@gudyjaggery.com>',
+      from: 'GUDY  <orders@gudyjaggery.com>',
       to: process.env.ADMIN_EMAIL,
       subject: 'Test Email from GUDY',
       text: 'If you see this, Resend is working!',
