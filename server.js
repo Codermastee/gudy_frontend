@@ -105,7 +105,7 @@ async function sendOrderNotification(order) {
   `;
 
   await resend.emails.send({
-    from: 'GUDY Orders <onboarding@resend.dev>',
+    from: 'GUDY Organics <orders@gudyjaggery.com>',
     to: process.env.ADMIN_EMAIL,
     subject: `🛒 New Order – ₹${order.totalAmount} from ${order.shippingAddress.fullName}`,
     html,
@@ -118,261 +118,60 @@ async function sendOrderNotification(order) {
 
 async function sendOrderConfirmationToCustomer(order, customerEmail) {
 
-  // Check if email exists
-  if (!customerEmail || customerEmail.trim() === '') {
-    console.log("❌ Customer email missing");
+  console.log("========== EMAIL DEBUG START ==========");
+
+  console.log("Customer Email Received:", customerEmail);
+
+  console.log("Order ID:", order?.id);
+
+  if (!customerEmail) {
+    console.log("❌ customerEmail is EMPTY");
     return;
   }
 
-  console.log("📧 Sending email to:", customerEmail);
-
-  const has750g = order.items.some(item =>
-    item.name?.toLowerCase().includes('750')
-  );
-
-  const itemsHTML = order.items.map(item => `
-    <tr>
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">
-        ${item.name}
-      </td>
-
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#2C1810;">
-        ${item.weight}
-      </td>
-
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#2C1810;">
-        x${item.quantity}
-      </td>
-
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#6B4423;">
-        ₹${item.priceINR * item.quantity}
-      </td>
-    </tr>
-  `).join('') + (has750g ? `
-    <tr style="background:#FFF8E7;">
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">
-        🎁 Free Gift – Jaggery Powder Jar 250g
-      </td>
-
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;color:#7a4f00;">
-        250g
-      </td>
-
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;text-align:center;color:#7a4f00;">
-        x1
-      </td>
-
-      <td style="padding:12px 10px;border-bottom:1px solid #f0e0cc;font-weight:700;color:#2d6a4f;">
-        FREE
-      </td>
-    </tr>
-  ` : '');
-
-  const freeGiftBannerHTML = has750g ? `
-    <div style="background:#FFF8E7;border:1.5px dashed #d4a03a;border-radius:10px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
-      <span style="font-size:28px;">🎁</span>
-
-      <div>
-        <div style="font-size:14px;font-weight:700;color:#7a4f00;">
-          You've earned a Free Gift!
-        </div>
-
-        <div style="font-size:13px;color:#b07d2a;margin-top:2px;">
-          1 × Jaggery Powder Jar 250g is included FREE with your 750g order.
-        </div>
-      </div>
-    </div>
-  ` : '';
-
-  const paymentLabel = order.paymentMethod === 'cod'
-    ? '💵 Cash on Delivery'
-    : '💳 Online Payment';
-
-  const estimatedDelivery = (() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 5);
-
-    return d.toLocaleDateString('en-IN', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-  })();
+  if (!customerEmail.includes("@")) {
+    console.log("❌ Invalid Email Format");
+    return;
+  }
 
   const html = `
-    <!DOCTYPE html>
-
-    <html>
-
-    <head>
-      <meta charset="UTF-8"/>
-    </head>
-
-    <body style="margin:0;padding:0;background:#FFF8F0;font-family:Arial,sans-serif;">
-
-      <div style="max-width:600px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(107,68,35,0.10);border:1px solid #f0e0cc;">
-
-        <!-- Header -->
-        <div style="background:linear-gradient(135deg,#2C1A0E 0%,#6B4423 100%);padding:36px 28px;text-align:center;">
-
-          <div style="font-size:48px;margin-bottom:8px;">🎉</div>
-
-          <h1 style="color:#FF9500;margin:0 0 6px;font-size:26px;">
-            Order Confirmed!
-          </h1>
-
-          <p style="color:rgba(255,255,255,0.85);margin:0;font-size:15px;">
-            Thank you for shopping with GUDY Organics
-          </p>
-
-        </div>
-
-        <!-- Order ID -->
-        <div style="background:#FFF3E0;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0e0cc;">
-
-          <span style="color:#7A6455;font-size:13px;">
-            Order ID
-          </span>
-
-          <span style="color:#6B4423;font-weight:700;font-size:15px;">
-            #GUDY-${String(order.id).padStart(5,'0')}
-          </span>
-
-        </div>
-
-        <div style="padding:28px;">
-
-          <p style="color:#2C1810;font-size:15px;margin:0 0 24px;">
-
-            Hi <strong>${order.shippingAddress.fullName}</strong>,
-
-            your order has been successfully placed!
-
-          </p>
-
-          ${freeGiftBannerHTML}
-
-          <!-- Items -->
-          <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
-
-            <thead>
-              <tr style="background:#6B4423;color:white;">
-
-                <th style="padding:10px;text-align:left;">
-                  Product
-                </th>
-
-                <th style="padding:10px;text-align:left;">
-                  Weight
-                </th>
-
-                <th style="padding:10px;text-align:center;">
-                  Qty
-                </th>
-
-                <th style="padding:10px;text-align:left;">
-                  Price
-                </th>
-
-              </tr>
-            </thead>
-
-            <tbody>
-              ${itemsHTML}
-            </tbody>
-
-          </table>
-
-          <!-- Total -->
-          <div style="background:linear-gradient(135deg,#2C1A0E,#6B4423);border-radius:10px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-
-            <span style="color:rgba(255,255,255,0.8);font-size:14px;">
-              Total Amount
-            </span>
-
-            <span style="color:#FF9500;font-size:28px;font-weight:900;">
-              ₹${order.totalAmount}
-            </span>
-
-          </div>
-
-          <!-- Shipping -->
-          <div style="background:#FDF6EE;border-radius:10px;padding:16px;margin-bottom:24px;">
-
-            <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">
-              Shipping Address
-            </h3>
-
-            <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
-
-              <strong>${order.shippingAddress.fullName}</strong><br/>
-
-              ${order.shippingAddress.address},<br/>
-
-              ${order.shippingAddress.city},
-              ${order.shippingAddress.state}<br/>
-
-              Pincode:
-              ${order.shippingAddress.pincode}<br/>
-
-              📞 ${order.shippingAddress.phone}
-
-            </p>
-
-          </div>
-
-          <!-- Payment -->
-          <div style="background:#FDF6EE;border-radius:10px;padding:16px;margin-bottom:24px;">
-
-            <h3 style="color:#6B4423;font-size:13px;margin:0 0 10px;">
-              Payment Info
-            </h3>
-
-            <p style="color:#2C1810;font-size:13px;margin:0;line-height:1.7;">
-
-              <strong>${paymentLabel}</strong><br/><br/>
-
-              Estimated Delivery:<br/>
-
-              <strong>${estimatedDelivery}</strong>
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </body>
-
-    </html>
+    <h1>Order Confirmed</h1>
+    <p>Order ID: ${order.id}</p>
+    <p>Thank you for your order.</p>
   `;
-
-  // ==================== EMAIL SEND ====================
 
   try {
 
+    console.log("📤 Attempting to send email...");
+
     const response = await resend.emails.send({
 
-      from: 'GUDY Organics <onboarding@resend.dev>',
+     from: 'GUDY Organics <orders@gudyjaggery.com>',
 
       to: customerEmail,
 
-      subject: `✅ Order Confirmed #GUDY-${String(order.id).padStart(5,'0')} – ₹${order.totalAmount}`,
+      subject: 'Test Order Confirmation',
 
       html,
 
     });
 
-    console.log("✅ EMAIL SUCCESS:", response);
+    console.log("✅ RESEND RESPONSE:");
+    console.log(response);
+
+    if (response.error) {
+      console.log("❌ RESEND ERROR:");
+      console.log(response.error);
+    }
 
   } catch (error) {
 
-    console.error("❌ EMAIL ERROR:", error);
+    console.log("❌ CATCH ERROR:");
+    console.log(error);
 
   }
 
+  console.log("========== EMAIL DEBUG END ==========");
 }
 
 // ── Optional auth — sets req.user if valid token present, allows guests through ──
@@ -1593,7 +1392,7 @@ async function sendStatusUpdateEmail(order, customerEmail) {
 app.get('/api/test-email', async (req, res) => {
   try {
     await resend.emails.send({
-      from: 'GUDY Test <onboarding@resend.dev>',
+      from: 'GUDY Organics <orders@gudyjaggery.com>',
       to: process.env.ADMIN_EMAIL,
       subject: 'Test Email from GUDY',
       text: 'If you see this, Resend is working!',
