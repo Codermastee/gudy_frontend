@@ -116,62 +116,221 @@ async function sendOrderNotification(order) {
 
 // ==================== CUSTOMER ORDER CONFIRMATION EMAIL ====================
 
+
 async function sendOrderConfirmationToCustomer(order, customerEmail) {
 
-  console.log("========== EMAIL DEBUG START ==========");
-
-  console.log("Customer Email Received:", customerEmail);
-
-  console.log("Order ID:", order?.id);
-
   if (!customerEmail) {
-    console.log("❌ customerEmail is EMPTY");
+    console.log("Customer email missing");
     return;
   }
 
-  if (!customerEmail.includes("@")) {
-    console.log("❌ Invalid Email Format");
-    return;
-  }
+  // Check if order contains 750g product
+  const has750gProduct = order.items.some(item =>
+    item.weight?.includes("750")
+  );
+
+  // Product rows
+  const itemsHTML = order.items.map(item => `
+    <tr>
+      <td style="padding:10px;border:1px solid #ddd;">
+        ${item.name}
+      </td>
+
+      <td style="padding:10px;border:1px solid #ddd;text-align:center;">
+        ${item.quantity}
+      </td>
+
+      <td style="padding:10px;border:1px solid #ddd;text-align:center;">
+        ₹${item.priceINR}
+      </td>
+
+      <td style="padding:10px;border:1px solid #ddd;text-align:center;">
+        ₹${item.priceINR * item.quantity}
+      </td>
+    </tr>
+  `).join('');
+
+  // Free gift row
+  const freeGiftHTML = has750gProduct ? `
+    <tr style="background:#fff8e1;">
+      <td style="padding:10px;border:1px solid #ddd;">
+        🎁 Free Jaggery Powder
+      </td>
+
+      <td style="padding:10px;border:1px solid #ddd;text-align:center;">
+        1
+      </td>
+
+      <td style="padding:10px;border:1px solid #ddd;text-align:center;">
+        FREE
+      </td>
+
+      <td style="padding:10px;border:1px solid #ddd;text-align:center;color:green;font-weight:bold;">
+        250g Included
+      </td>
+    </tr>
+  ` : '';
 
   const html = `
-    <h1>Order Confirmed</h1>
-    <p>Order ID: ${order.id}</p>
-    <p>Thank you for your order.</p>
+    <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:20px;">
+
+      <div style="max-width:650px;margin:auto;background:white;border-radius:10px;overflow:hidden;">
+
+        <div style="background:#6B4423;color:white;padding:25px;text-align:center;">
+
+          <h1 style="margin:0;">
+            GUDY Organics
+          </h1>
+
+          <p style="margin-top:10px;">
+            Your Order Has Been Confirmed
+          </p>
+
+        </div>
+
+        <div style="padding:25px;">
+
+          <h2 style="color:#333;">
+            Hello ${order.shippingAddress.fullName},
+          </h2>
+
+          <p style="font-size:15px;color:#555;">
+            Thank you for your order. Your order has been successfully placed.
+          </p>
+
+          <div style="background:#f1f1f1;padding:15px;border-radius:8px;margin:20px 0;">
+
+            <p style="margin:5px 0;">
+              <strong>Order ID:</strong>
+              #GUDY-${String(order.id).padStart(5,'0')}
+            </p>
+
+            <p style="margin:5px 0;">
+              <strong>Total Amount:</strong>
+              ₹${order.totalAmount}
+            </p>
+
+          </div>
+
+          <h3 style="margin-top:30px;color:#333;">
+            Order Details
+          </h3>
+
+          <table style="width:100%;border-collapse:collapse;margin-top:15px;">
+
+            <thead>
+
+              <tr style="background:#6B4423;color:white;">
+
+                <th style="padding:12px;border:1px solid #ddd;">
+                  Product
+                </th>
+
+                <th style="padding:12px;border:1px solid #ddd;">
+                  Qty
+                </th>
+
+                <th style="padding:12px;border:1px solid #ddd;">
+                  Price
+                </th>
+
+                <th style="padding:12px;border:1px solid #ddd;">
+                  Total
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${itemsHTML}
+
+              ${freeGiftHTML}
+
+            </tbody>
+
+          </table>
+
+          ${
+            has750gProduct
+            ? `
+              <div style="margin-top:25px;padding:15px;background:#fff8e1;border-left:5px solid #ff9800;border-radius:6px;">
+
+                <h3 style="margin-top:0;color:#e65100;">
+                  🎁 Free Gift Added
+                </h3>
+
+                <p style="margin-bottom:0;color:#555;">
+                  Since your order contains a 750g product,
+                  you received a FREE 250g Jaggery Powder.
+                </p>
+
+              </div>
+            `
+            : ''
+          }
+
+          <div style="margin-top:30px;">
+
+            <h3 style="color:#333;">
+              Shipping Address
+            </h3>
+
+            <p style="line-height:1.7;color:#555;">
+${order.shippingAddress.fullName}<br>
+
+              ${order.shippingAddress.address}<br>
+
+              ${order.shippingAddress.city},
+              ${order.shippingAddress.state}<br>
+
+              ${order.shippingAddress.pincode}<br>
+
+              Phone:
+              ${order.shippingAddress.phone}
+
+            </p>
+
+          </div>
+
+          <div style="margin-top:40px;text-align:center;color:#777;font-size:14px;">
+
+            <p>
+              Thank you for choosing GUDY Organics ❤️
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   `;
 
   try {
 
-    console.log("📤 Attempting to send email...");
-
     const response = await resend.emails.send({
 
-     from: 'GUDY Organics <orders@gudyjaggery.com>',
+      from: 'GUDY Organics <orders@gudyjaggery.com>',
 
       to: customerEmail,
 
-      subject: 'Test Order Confirmation',
+      subject: `✅ Order Confirmed #GUDY-${String(order.id).padStart(5,'0')}`,
 
       html,
 
     });
 
-    console.log("✅ RESEND RESPONSE:");
-    console.log(response);
-
-    if (response.error) {
-      console.log("❌ RESEND ERROR:");
-      console.log(response.error);
-    }
+    console.log("EMAIL SUCCESS:", response);
 
   } catch (error) {
 
-    console.log("❌ CATCH ERROR:");
-    console.log(error);
+    console.error("EMAIL ERROR:", error);
 
   }
 
-  console.log("========== EMAIL DEBUG END ==========");
 }
 
 // ── Optional auth — sets req.user if valid token present, allows guests through ──
